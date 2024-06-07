@@ -104,7 +104,7 @@ export function DropDown({
       body: JSON.stringify(newOption),
     }).then((response) => {
       if (response.ok) {
-        console.log("New option added successfully");
+       
         fetch(`http://${API_HOST}:${API_PORT}/${tableName}`)
           .then((response) => response.json())
           .then((data) => {
@@ -129,7 +129,7 @@ export function DropDown({
       }
     ).then((response) => {
       if (response.ok) {
-        console.log("Option removed successfully");
+       
       }
     });
   };

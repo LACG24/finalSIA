@@ -73,7 +73,7 @@ export function SelectDate({
     }
 
     try {
-      console.log(formData);
+     
       const response = await fetch(`http://${API_HOST}:${API_PORT}/alimentos`, {
         method: "POST",
         headers: {
@@ -86,7 +86,7 @@ export function SelectDate({
       }
       // Manejar el éxito de la inserción
       setShowSuccessPopup(true); // Mostrar el Popup de éxito
-      console.log("Alimento agregado correctamente");
+     
     } catch (error) {
       console.error("Error al agregar el alimento:", error);
     }
@@ -246,7 +246,7 @@ export function SelectDateAddDate({
     }
 
     try {
-      console.log(formData);
+     
       const response = await fetch(`http://${API_HOST}:${API_PORT}/alimentos`, {
         method: "POST",
         headers: {
@@ -259,7 +259,7 @@ export function SelectDateAddDate({
       }
       // Manejar el éxito de la inserción
       setShowSuccessPopup(true); // Mostrar el Popup de éxito
-      console.log("Alimento agregado correctamente");
+     
     } catch (error) {
       console.error("Error al agregar el alimento:", error);
     }

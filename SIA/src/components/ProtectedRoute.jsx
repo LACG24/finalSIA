@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { logout } from "../../generalFunctions";
+import { logout } from "../generalFunctions";
+
+const API_HOST = import.meta.env.VITE_API_HOST;
+const API_PORT = import.meta.env.VITE_API_PORT;
+const userRol = localStorage.getItem("userRol"); // Obtener el userRol del almacenamiento local
 
 export const ProtectedRoute = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -13,7 +17,6 @@ export const ProtectedRoute = ({ children }) => {
       setIsLoading(false);
 
       if (!isAuthenticated) {
-        // Aquí puedes manejar la lógica para cuando el usuario no está autenticado
         navigate("/login");
       } else {
         const userCookieValue = getCookieValue("userCookieSIA");
@@ -30,9 +33,11 @@ export const ProtectedRoute = ({ children }) => {
           });
 
           if (response.status === 200) {
-            console.log("User validated");
+            // Verifica si la ruta es la página de administración de usuarios
+            if (location.pathname === '/adminUserPage' && userRol === 0) {
+              navigate("/");
+            }
           } else if (response.status === 401) {
-            console.log("User not found");
             logout(navigate);
           } else {
             console.error("Server error");

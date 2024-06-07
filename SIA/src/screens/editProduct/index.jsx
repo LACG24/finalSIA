@@ -159,7 +159,7 @@ export function EditProduct() {
         throw new Error("Error al editar el alimento");
       }
 
-      console.log("Alimento editado correctamente");
+     
 
       const stockBody = {
         a_id: a_id,

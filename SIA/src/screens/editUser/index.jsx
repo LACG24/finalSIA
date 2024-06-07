@@ -38,7 +38,7 @@ export const EditUser = () => {
           u_pass: userData.u_pass,
           u_rol: userData.u_rol,
         });
-        console.log(userData);
+       
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -63,7 +63,7 @@ export const EditUser = () => {
     if (!validateForm()) return;
 
     try {
-      console.log(formData);
+     
       const response = await fetch(
         `http://${API_HOST}:${API_PORT}/usuarios/${u_id}`,
         {
@@ -78,7 +78,7 @@ export const EditUser = () => {
         throw new Error("Error al editar el usuario");
       }
       // Manejar el éxito de la edición
-      console.log("Usuario editado correctamente");
+     
     } catch (error) {
       console.error("Error al editar el usuario:", error);
     }

@@ -42,14 +42,14 @@ export const Login = () => {
           document.cookie = `userCookieSIA=${id}; expires=${expiresFormatted}; path=/`;
 
           // Save user details in local storage
-          console.log(data);
+         
           if (data.userId) {
             localStorage.setItem("userId", data.userId);
             if (data.userRol === null) {
               data.userRol = 0;
-            } else {
               localStorage.setItem("userRol", data.userRol);
-            }
+            } 
+            localStorage.setItem("userRol", data.userRol);
             navigate("/mainPage");
           } else {
             throw new Error("Datos de usuario no válidos");

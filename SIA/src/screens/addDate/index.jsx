@@ -147,7 +147,7 @@ export function AddDate() {
         }
 
         // Manejar el éxito de la inserción
-        console.log("Alimentos agregados correctamente");
+       
         setShowSuccessPopup(true);
       } catch (error) {
         console.error("Error al agregar los alimentos:", error);

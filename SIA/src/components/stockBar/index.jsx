@@ -63,7 +63,7 @@ export function StockBar({
       );
     } else {
       setColor("black");
-      console.log("No hay cambios en el stock");
+     
     }
   }, [modificationMap, id, setColor]);
 

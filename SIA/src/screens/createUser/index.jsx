@@ -86,7 +86,7 @@ export const CreateUser = () => {
       // Manejar el éxito de la inserción
       setRegistrationSuccess(true);
       setError(null);
-      console.log("Usuario agregado correctamente");
+     
     } catch (error) {
       setError(error.message);
       console.error("Error al agregar el usuario:", error);

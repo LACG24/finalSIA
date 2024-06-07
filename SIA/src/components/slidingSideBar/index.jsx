@@ -32,7 +32,7 @@ export function SlidingSideBar({
 
   const handleClickStock = () => {
     setShowWithoutStock(!showWithoutStock);
-    console.log(showWithoutStock);
+   
   };
 
   return (

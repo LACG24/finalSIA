@@ -85,7 +85,7 @@ export const RestorePass = () => {
         templateParams,
         "ItP7OTaI2vAb03jHA"
       );
-      console.log("Correo enviado con éxito:", response);
+     
       sessionStorage.setItem("email", email);
       setIsModalOpen(true);
     } catch (error) {

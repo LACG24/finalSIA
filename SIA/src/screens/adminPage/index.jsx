@@ -78,7 +78,7 @@ export const AdminPage = ({ selectedIds, setSelectedIds }) => {
                   quantity: modificationMap[key][0] - modificationMap[key][1],
                 };
 
-          console.log("body", body);
+         
 
           await fetch(`http://${API_HOST}:${API_PORT}/usuarios/stock/`, {
             method: "POST",
@@ -219,7 +219,7 @@ export const AdminPage = ({ selectedIds, setSelectedIds }) => {
             console.error("Error:", error.message);
           });
       } else if (searchType === 0) {
-        console.log("searchTerm", searchTerm);
+       
         fetch(
           `http://${API_HOST}:${API_PORT}/alimentos/busqueda/nombre/${searchTerm}?page=${currentPage}&pageSize=${pageSize}`
         )
@@ -886,7 +886,7 @@ export const AdminPage = ({ selectedIds, setSelectedIds }) => {
           console.error("Error:", error.message);
         }); // mostrar todos los alimentos ordenados por uEnt
     } else {
-      console.log("No hay una combinación de filtros y ordenamiento válida.");
+     
     }
 
     //set pages according to alimentos
@@ -952,7 +952,7 @@ export const AdminPage = ({ selectedIds, setSelectedIds }) => {
           console.error("Error:", error.message);
         });
     } else {
-      console.log("No hay filtros seleccionados");
+     
     }
   }, [currentPage, options, pageSize, searchType, searchTerm]);
 
@@ -1025,7 +1025,7 @@ export const AdminPage = ({ selectedIds, setSelectedIds }) => {
 
   return (
     <div className="adminPage">
-      <ReturnButton />
+      <ReturnButton nav={"/mainPage"}/>
       <Guide
         message="Saludos a todos, bienvenidos al sistema de administración del albergue, el día de hoy centrense en comprenderlo :) "
         size={100}
@@ -1099,7 +1099,6 @@ export const AdminPage = ({ selectedIds, setSelectedIds }) => {
         </div>
         {filteredAlimentos.map(
           (alimento) => (
-            console.log("alimento", alimento.a_cantidad),
             (
               <RowAdminPage
                 showWithoutStock={showWithoutStock}

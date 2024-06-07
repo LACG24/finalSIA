@@ -15,7 +15,7 @@ export const TestScreen = () => {
         throw new Error("Error al obtener los usuarios");
       })
       .then((data) => {
-        console.log("Alimentos:", data);
+       
         setAlimentos(data);
       })
       .catch((error) => {

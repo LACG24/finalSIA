@@ -3,7 +3,7 @@ import "./returnButton.css";
 import returnImage from "../../assets/img/returnImage.png";
 import { useNavigate } from "react-router-dom";
 
-export function ReturnButton({ textElement, onClick }) {
+export function ReturnButton({ textElement, onClick, nav }) {
   const [color, setColor] = useState("var(--color-gray)");
   let navigate = useNavigate();
 
@@ -11,7 +11,12 @@ export function ReturnButton({ textElement, onClick }) {
     if (onClick) {
       onClick();
     }
-    navigate(-1);
+    if (nav){
+      navigate(nav);
+    }
+    else {
+      navigate(-1);
+    }
   };
 
   return (

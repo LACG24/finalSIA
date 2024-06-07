@@ -118,7 +118,7 @@ export function AddProduct() {
   };
 
   const validateForm = () => {
-    console.log("validating form", formData.a_nombre.trim());
+    
     if (formData.a_nombre.trim() === "") {
       setValidationMessage("El nombre del producto es obligatorio.");
       setIndividualValidationMessage({
@@ -127,7 +127,7 @@ export function AddProduct() {
         expirationDateValidationMessage: "",
         quantityValidationMessage: "",
       });
-      console.log("nombre", formData.a_nombre);
+     
       return false;
     } else if (formData.a_nombre.length > 40) {
       setValidationMessage(
@@ -255,7 +255,7 @@ export function AddProduct() {
       dataReset("a_cantidad", 0);
       return false;
     }
-    console.log("-------CheckDate:", checkDate);
+   
     if (checkDate) {
       setValidationMessage("");
       setIndividualValidationMessage({
@@ -290,7 +290,7 @@ export function AddProduct() {
       return;
     }
 
-    console.log("Formulario válido:", adjustedFormData);
+   
     try {
       const response = await fetch(`http://${API_HOST}:${API_PORT}/alimentos`, {
         method: "POST",
@@ -302,7 +302,7 @@ export function AddProduct() {
 
       if (response.ok) {
         // Solo se muestra el pop-up si la respuesta es correcta
-        console.log("Alimento agregado correctamente");
+       
         setIsModalOpen(true);
       } else {
         // Manejamos específicamente otros códigos de error, si es necesario

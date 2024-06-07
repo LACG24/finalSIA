@@ -57,6 +57,7 @@
 
 .rowAdminPage .cadDate {
   width: 15%;
+  font-size: 1.5vw;
 }
 
 .rowChecked .stockBar input {
@@ -72,9 +73,10 @@
 
 .rowAdminPage p {
   font-weight: 600;
-  font-size: 1.5vw;
+  font-size: 2vw;
   text-decoration: none;
   color: black;
+  text-align: center;
 }
 
 .addDifferentCad {

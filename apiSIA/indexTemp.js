@@ -26,9 +26,23 @@ import xlsx from "xlsx";
 
 const app = express();
 
+const PORT = 3001;
+const FRONTEND_PORT = 5173;
+const API_HOST = "localhost";
+
 app.use(
   cors({
-    origin: "http://localhost:5173", // Allow requests from the frontend URL
+    origin: function (origin, callback) {
+      const whitelist = [
+        `http://${API_HOST}:${FRONTEND_PORT}`,
+        `http://localhost:` + FRONTEND_PORT,
+      ];
+      if (whitelist.indexOf(origin) !== -1 || !origin) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: "GET,POST,PUT,DELETE",
     allowedHeaders: "Content-Type,Authorization",
     credentials: true,
@@ -78,16 +92,46 @@ app.post("/login", (req, res) => {
         .update(password)
         .digest("hex");
 
-      if (userData.u_contraseña === hashedPassword) {
+      if (userData.u_pass === hashedPassword) {
         console.log("Login successful");
         res.json({ userId: userData.u_id, userRol: userData.u_rol });
       } else {
-        console.log("Invalid password", userData.u_contraseña, hashedPassword);
+        console.log("Invalid password", userData.u_pass, hashedPassword);
         res.status(401).send("Invalid username or password");
       }
     }
   );
 });
+
+app.post("/validate", (req, res) => {
+  const { id } = req.body;
+
+  if (!id) {
+    return res.status(400).send("Missing id");
+  }
+
+  connection.query(
+    "SELECT * FROM Usuario WHERE u_id = ?",
+    [id],
+    (err, rows) => {
+      if (err) {
+        console.error("Query error:", err);
+        return res.status(500).send("Server error");
+      }
+
+      if (rows.length === 0) {
+        console.log("User not found");
+        return res.status(401).send("Invalid username");
+      }
+
+      // If user is found
+      console.log("User found:", rows[0]);
+      return res.status(200).send("User validated");
+    }
+  );
+});
+
+//-------------------------------------------------------------------------------------------------------
 
 // xlsx para alimentos
 
@@ -113,8 +157,6 @@ app.get("/alimentos/xlsx", (req, res) => {
   });
 });
 
-//-------------------------------------------------------------------------------------------------------
-// PRUEBAAAAAAAAAAAAAAAAA
 // Obtener fechas de caducidad de UN ALIMENTO ESPECÍFICO (Lata de Atún 200 g)
 app.get("/alimentos/atun", (req, res) => {
   connection.query(
@@ -910,7 +952,7 @@ app.post("/alimentos", (req, res) => {
 
   const registrarAccion = (a_id, actionType, quantity) => {
     return axios
-      .post("http://localhost:3000/usuarios/stock", {
+      .post(`http://${API_HOST}:${PORT}/usuarios/stock`, {
         a_id,
         u_id,
         actionType,
@@ -1457,15 +1499,15 @@ app.get("/usuarios/verificar-email/:email", (req, res) => {
 
 // Agregar un nuevo usuario
 app.post("/usuarios", (req, res) => {
-  const { u_id, u_nombre, u_apellidos, u_email, u_contraseña } = req.body;
+  const { u_id, u_nombre, u_apellidos, u_email, u_pass } = req.body;
 
   const hashedContraseña = crypto
     .createHash("sha256")
-    .update(u_contraseña)
+    .update(u_pass)
     .digest("hex");
 
   connection.query(
-    "INSERT INTO Usuario (u_id, u_nombre, u_apellidos, u_email, u_contraseña) VALUES (?, ?, ?, ?, ?)",
+    "INSERT INTO Usuario (u_id, u_nombre, u_apellidos, u_email, u_pass) VALUES (?, ?, ?, ?, ?)",
     [u_id, u_nombre, u_apellidos, u_email, hashedContraseña],
     (err, result) => {
       if (err) {
@@ -1528,7 +1570,7 @@ app.put("/usuarios/:email/pass", (req, res) => {
 
   // Ejecutar la consulta para actualizar la contraseña del usuario
   connection.query(
-    "UPDATE Usuario SET u_contraseña = ? WHERE u_email = ?",
+    "UPDATE Usuario SET u_pass = ? WHERE u_email = ?",
     [hashedNuevaContraseña, email],
     (err, result) => {
       if (err) {
@@ -1991,7 +2033,6 @@ app.get("/usuarios/:id/transacciones", (req, res) => {
   );
 });
 
-const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Servidor Express en funcionamiento en el puerto ${PORT}`);
 });

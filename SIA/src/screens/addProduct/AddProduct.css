@@ -71,3 +71,24 @@ input,
 select {
   max-width: 100%; /* Evita que los elementos se desborden */
 }
+
+/*resposive for mobile*/
+
+@media (max-width: 768px) {
+  label {
+    font-size: 0.8rem !important;
+  }
+
+  .errorMessage {
+    font-size: 0.5rem !important;
+  }
+
+  .calendar-input {
+    background-position: 95% 50%;
+    background-size: 20px;
+  }
+
+  .addProductContainer button.add {
+    width: 100px !important;
+  }
+}

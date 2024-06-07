@@ -1,56 +1,94 @@
 .editProduct {
   width: 90%;
-  height: 90vh;
+  height: 100vh; /* Establece la altura al 100% de la altura de la ventana */
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 50px;
+}
+
+.inputContainer > * {
+  height: 80px;
+}
+
+.editProduct .confPopUp {
+  width: 50%;
+  z-index: 9999 !important;
+}
+
+.editProduct .confPopUp .buttonContainer {
+  width: 100%;
 }
 
 .editProductTitle {
-  margin: 2%;
-  width: 100%;
-  height: 30%;
+  width: 100%; /* Ajusta el ancho al 100% del contenedor principal */
+  margin: 5vh 5vh;
+  height: 20vh; /* Modifica la altura según tus necesidades */
+}
+
+.editProductTitle .info-banner {
+  height: 50%;
+}
+
+.editProductTitle .returnButtonContainer {
+  height: 45%;
+  margin-top: 2%;
 }
 
 .editProductContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 85%; /* Ajusta el ancho al 100% del contenedor principal */
-  height: 60%; /* Ajusta la altura al 90% del contenedor principal */
+  height: 58vh; /* Ajusta la altura al 90% del contenedor principal */
   background-color: var(--white-background) !important;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
-  margin: 2% 0 2% 0;
   padding: 3% 0 3% 0;
 }
 
 .editProductContainer button {
-  width: 20%;
+  width: 20%; /* Ajusta el ancho al 30% del contenedor padre */
   height: 40px;
 }
 
 .inputContainer {
+  position: relative;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-around;
-  width: 100%;
+  width: 100%; /* Ajusta el ancho al 100% del contenedor padre */
 }
 
 .inputContainer > * {
   width: 40%;
-  margin: 1%;
 }
 
+/* Añade reglas para evitar el desbordamiento horizontal en caso de contenido grande */
 input,
 select {
-  max-width: 100%;
+  max-width: 100%; /* Evita que los elementos se desborden */
 }
 
-.editProductContainer .generalButton {
-  margin-top: 30px;
+/*resposive for mobile*/
+
+@media (max-width: 768px) {
+  label {
+    font-size: 0.8rem !important;
+  }
+
+  .errorMessage {
+    font-size: 0.5rem !important;
+  }
+
+  .calendar-input {
+    background-position: 95% 50%;
+    background-size: 20px;
+  }
+
+  .editProductContainer button.add {
+    width: 100px !important;
+  }
 }

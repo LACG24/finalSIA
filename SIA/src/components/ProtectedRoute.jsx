@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { logout } from "../../generalFunctions";
+import { logout } from "../generalFunctions";
+
+const API_HOST = import.meta.env.VITE_API_HOST;
+const API_PORT = import.meta.env.VITE_API_PORT;
 
 export const ProtectedRoute = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -21,13 +24,16 @@ export const ProtectedRoute = ({ children }) => {
 
         try {
           // Verifica si el user_id existe en la base de datos usando fetch
-          const response = await fetch(`http://${API_HOST}:${API_PORT}/validate`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ id: userCookieValue }),
-          });
+          const response = await fetch(
+            `http://${API_HOST}:${API_PORT}/validate`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ id: userCookieValue }),
+            }
+          );
 
           if (response.status === 200) {
             console.log("User validated");

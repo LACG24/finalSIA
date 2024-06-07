@@ -79,6 +79,8 @@ export function EditProduct() {
   };
 
   const validateForm = () => {
+    // Validate expiration date if "" set to null
+
     const messages = {
       productValidationMessage: "",
       stockValidationMessage: "",
@@ -143,6 +145,12 @@ export function EditProduct() {
   const handleSubmit = async () => {
     if (!validateForm()) return;
 
+    const adjustedFormData = {
+      ...formData,
+      a_fechaCaducidad:
+        formData.a_fechaCaducidad == "" ? null : formData.a_fechaCaducidad,
+    };
+
     try {
       const response = await fetch(
         `http://${API_HOST}:${API_PORT}/alimentos/${a_id}`,
@@ -151,7 +159,7 @@ export function EditProduct() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(adjustedFormData),
         }
       );
 

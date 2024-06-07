@@ -81,7 +81,7 @@ export const MainPage = () => {
               <th>Producto</th>
               <th>Marca</th>
               <th>Estatus</th>
-              <th>Fecha caducidad próxima</th>
+              <th>Caducidad</th>
             </tr>
           </thead>
           <tbody>

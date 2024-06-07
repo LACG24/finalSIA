@@ -1,0 +1,20 @@
+.logInput {
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  width: 50%;
+  gap: 20px;
+}
+
+.logInput p {
+  font-weight: normal;
+  font-size: large;
+}
+
+.logInput input {
+  background-color: var(--color-gray);
+  color: black;
+  border: none;
+  height: 40px;
+}

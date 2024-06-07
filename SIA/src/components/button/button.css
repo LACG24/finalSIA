@@ -1,0 +1,19 @@
+.add {
+  background-color: var(--color-button-blue);
+  border: none;
+  border-radius: 30px;
+  color: white;
+  font-size: medium;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: normal;
+  max-width: 200px;
+  width: auto;
+  cursor: pointer;
+}
+
+.add:hover {
+  background-color: var(--color-green);
+}

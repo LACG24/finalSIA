@@ -1,0 +1,47 @@
+.acc {
+  background-color: var(--color-button-blue);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: medium;
+  padding: 0rem 1rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: normal;
+  width: 100px;
+  cursor: pointer;
+  height: 30px;
+}
+
+/*
+.acc:hover {
+    background-color: #3c6382;
+}*/
+
+.accC {
+  background-color: var(--color-button-blue);
+  border: none;
+  border-radius: 30px;
+  color: white;
+  font-size: medium;
+  padding: 0rem 1rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: normal;
+  width: 50px;
+  cursor: pointer;
+  height: 50px;
+  font-size: 30px;
+}
+
+/* Aumentar especificidad */
+button.accC:hover {
+  background-color: #a9adf2;
+}
+
+/*
+.accC:hover {
+    background-color: #3c6382;
+}*/

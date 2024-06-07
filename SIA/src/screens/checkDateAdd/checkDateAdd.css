@@ -1,0 +1,110 @@
+.dateAdd {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 10px 5px;
+  margin-top: 50px;
+}
+
+.mensajeA {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Estilos para el contenedor del pop-up */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semi-transparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Estilos para el contenido del pop-up */
+.modalContent {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra */
+  max-width: 80%; /* Máximo ancho del pop-up */
+  max-height: 80%; /* Máxima altura del pop-up */
+  overflow: auto; /* Permitir desplazamiento si el contenido es demasiado largo */
+}
+
+.buttonBackAdd {
+  display: flex;
+  margin-left: 5%;
+  align-items: flex-start; /* Ajusta el comportamiento de align-items para .buttonBackAdd */
+}
+
+.buttonBackAdd .titulo {
+  margin-top: 25px;
+  margin-bottom: 0px;
+  font-weight: bold;
+  font-size: 42px;
+}
+
+.cuadrado {
+  width: 90%;
+  height: auto;
+  padding-top: 3%;
+  background-color: var(--color-gray);
+  margin: 0px auto;
+}
+
+.cuadrado p {
+  /* Ajusta el círculo al borde derecho */
+  left: 37%;
+  margin: 0px auto;
+  font-size: 20px;
+  text-align: center;
+}
+
+.tableContainerAdd {
+  /* Elimina position: absolute; */
+  /* position: absolute; */
+  margin: 30px auto; /* Centrar horizontalmente */
+  font-size: 22px;
+  text-align: center;
+  width: auto; /* Ajustar automáticamente al tamaño de los datos */
+  display: table;
+  background: var(--color-gray);
+}
+
+.userTableAdd {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.userTableAdd th {
+  padding: 8px;
+  border-bottom: 1px solid var(--color-gray);
+  text-align: center;
+  background: var(--color-gray);
+  padding-right: 20px;
+  padding-left: 20px;
+  font-weight: bold;
+}
+
+.userTableAdd td {
+  border-bottom: 1px solid var(--color-gray);
+  text-align: left;
+  background: var(--color-gray);
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.botonesAdd {
+  margin-top: 140px;
+  margin-bottom: 20px;
+}
+
+.botonesAdd button {
+  margin-right: 20px;
+  padding: 13px 35px;
+}

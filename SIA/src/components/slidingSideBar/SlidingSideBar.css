@@ -1,0 +1,137 @@
+.sidebar {
+  width: 50px; /* Ancho de la barra cerrada */
+  height: 90%;
+  background-color: #252b96;
+  position: fixed;
+  top: 10%;
+  left: 1%;
+  transition: width 0.5s ease;
+  cursor: pointer;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bar {
+  width: 100%;
+  height: 100%;
+  background-color: #252b96;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.sidebar.expanded {
+  width: 60%;
+}
+
+.sidebar-image {
+  width: 30px;
+  height: auto;
+  transition: transform 0.5s ease;
+}
+
+.additional-content {
+  position: absolute;
+  top: 50%;
+  left: 2%;
+  transform: translateY(-50%);
+  background-color: transparent;
+  transition: opacity 0.3s ease, transform 0.5s ease, width 0.5s ease; /* Añade transición en la transformación y el ancho */
+  opacity: 0;
+  width: auto; /* Inicialmente, sin ancho */
+  display: flex;
+  flex-direction: column; /* Establece el contenido adicional en una columna */
+  overflow-y: auto;
+  max-height: 80vh; /* Limita la altura máxima para evitar que el contenido se extienda más allá de la pantalla */
+}
+
+.additional-content > div {
+  margin-bottom: 2%;
+  width: 80%;
+}
+
+.additional-content.expanded {
+  opacity: 1;
+  transform: translateY(-50%); /* Mantiene el centrado vertical */
+  width: 90%; /* Se expande automáticamente al contenido */
+}
+
+.sidebar.expanded .additional-content {
+  pointer-events: auto;
+  cursor: auto;
+}
+
+.sidebar:not(.expanded) .additional-content {
+  pointer-events: none;
+  cursor: default;
+}
+
+.title-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 50px; /* Ajusta el padding horizontal para cambiar la separación entre cada título */
+}
+
+.title {
+  font-size: large;
+  font-weight: bold;
+  color: white;
+}
+
+.headerSlider {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.headerSlider button {
+  border: none;
+  border-radius: 20px;
+  width: 50%;
+  margin-left: 20px;
+  height: 25px;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+}
+
+.showWithoutStock {
+  background-color: green;
+}
+
+.hideWithoutStock {
+  background-color: red;
+}
+
+/* Resposive for sidebar divs */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 5%;
+    height: 90%;
+  }
+  .sidebar-image {
+    width: 15px;
+    height: auto;
+  }
+
+  .headerSlider {
+    width: 100%;
+  }
+
+  .sidebar.expanded {
+    width: 80%;
+    height: auto;
+    z-index: 99999;
+  }
+  .showWithoutStock p {
+    font-size: 0.4rem;
+  }
+
+  .hideWithoutStock p {
+    font-size: 0.4rem;
+  }
+}

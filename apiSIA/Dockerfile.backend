@@ -1,0 +1,41 @@
+# Usar una imagen base de Ubuntu 20.04
+FROM ubuntu:20.04
+
+# Establecer las variables de entorno para que la instalación no interactiva no requiera intervención del usuario
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Actualizar el sistema e instalar paquetes necesarios
+RUN apt-get update && \
+    apt-get install -y \
+    curl \
+    mysql-client \
+    locales \
+    && rm -rf /var/lib/apt/lists/*
+
+# Generar locales y establecer el español como predeterminado
+RUN locale-gen es_ES.UTF-8
+ENV LANG es_ES.UTF-8
+ENV LANGUAGE es_ES:es
+ENV LC_ALL es_ES.UTF-8
+
+# Instalar Node.js
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && apt-get install -y nodejs
+
+# Establecer el directorio de trabajo dentro del contenedor
+WORKDIR /app
+
+# Copiar package.json y package-lock.json al contenedor
+COPY package*.json ./
+
+# Instalar dependencias
+RUN npm install
+
+# Copiar el resto de la aplicación
+COPY . .
+
+# Exponer el puerto en el que la aplicación se ejecuta
+EXPOSE 3001
+
+# Hacer que el script wait_db.sh sea ejecutable y eliminar caracteres de retorno de carro
+RUN chmod +x ./wait_db.sh
+RUN sed -i 's/\r//' ./wait_db.sh

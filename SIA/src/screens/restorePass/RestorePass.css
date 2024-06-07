@@ -1,0 +1,55 @@
+.restore {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  align-items: center;
+  top: 12%;
+  width: 50%;
+  gap: 20px;
+}
+
+.restore .info-banner {
+  height: 100px;
+  width: 90%;
+}
+
+.login-container {
+  background-color: var(--white-background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  width: 90%;
+  height: 50vh; /* Cambiar el valor según sea necesario */
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center; /* Centrar horizontalmente */
+}
+
+.restore .mensaje {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.error-message {
+  font-size: small;
+  color: red;
+  align-self: center;
+}
+
+.modalOverlayRes {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,0 +1,49 @@
+.checkCard_selectDate {
+    background-color: #eeeded;
+    padding: 3vw;
+    border: 3px solid black;
+    width: 850px;
+    height: 450px;
+    border-radius: 10px;
+    display: flex;
+  }
+  
+.checkCard_selectDate button{
+    padding: 13px 30px;
+    margin-top: 15px;
+}
+
+.generalTable .calendarID{
+  margin-top: 10px;
+}
+
+.generalTable .textID{
+  margin-left: 90px;
+  margin-top: 10px;
+}
+
+.generalTable{
+    /*border: 2px solid black;*/
+    text-align: center;
+    width: 800px;
+    margin-left: 50px;
+    margin-top:5p 5;
+}
+
+.generalTable td{
+  padding: 0px 5px;
+}
+
+.productsTable{
+  margin-left: 10px;
+}
+
+.productsTable th{
+  font-weight: bold;
+  padding-bottom: 13px;
+  padding-left: 20px;
+}
+
+.productsTable td{
+  padding-left: 20px;
+}

@@ -1,0 +1,88 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  align-items: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  gap: 35px;
+}
+
+.login-container {
+  background-color: var(--white-background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-radius: 8px;
+  width: 100%;
+  gap: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+}
+
+.mensaje {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.forgotPassword {
+  color: gray;
+  cursor: pointer;
+  font-size: medium;
+}
+
+.forgotPassword:hover {
+  text-decoration: underline;
+}
+
+.logInput {
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  width: 50%;
+  gap: 20px;
+}
+
+.logInput p {
+  font-weight: normal;
+  font-size: large;
+}
+
+.logInput input {
+  background-color: var(--color-gray);
+  color: black;
+  border: none;
+  height: 40px;
+}
+
+.error-message {
+  font-size: small;
+  color: red;
+  align-self: center;
+  text-align: center;
+}
+
+.login .info-banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100px;
+}
+
+.login .info-banner img {
+  width: 12%;
+  height: 100%;
+}
+
+.login .info-banner p {
+  font-size: 20px;
+  font-weight: 700;
+  background-color: var(--white-background);
+  padding: 5% 18%;
+}

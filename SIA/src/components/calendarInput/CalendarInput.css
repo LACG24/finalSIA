@@ -1,0 +1,36 @@
+.calendar-input-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  align-items: left;
+  width: 50%;
+  background-color: white;
+}
+
+.calendar-input {
+  border: none;
+  background-image: url("../../assets/img/calendarIcon.png");
+  background-repeat: no-repeat;
+  background-position: right center;
+
+  background-color: white;
+  height: 40px;
+}
+
+.calendar-input-container label {
+  font-weight: normal;
+  font-size: large;
+  background-color: var(--white-background);
+  margin: 0;
+  padding-bottom: 5px;
+  font-weight: bold;
+}
+
+.calendar-popup-container {
+  position: absolute;
+  bottom: 100%; /* Ajusta la distancia vertical entre el input y el pop-up */
+  left: 50%;
+  transform: translateX(-50%); /* Centra horizontalmente el pop-up */
+  z-index: 999; /* Asegúrate de que el pop-up esté encima de otros elementos */
+}

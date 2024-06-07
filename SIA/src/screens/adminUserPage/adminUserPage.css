@@ -1,0 +1,160 @@
+.tableContainer {
+  width: 82%;
+  max-height: 640px;
+  overflow-y: scroll;
+  background-color: var(--color-gray);
+  border-radius: 30px; /* Agrega border radius */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+}
+
+.userPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  padding: 20px;
+  overflow-x: hidden;
+}
+
+.userPage .info-banner {
+  height: 80px;
+}
+
+.userTable {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--white-background);
+}
+
+.userTable th,
+.userTable td {
+  text-align: center;
+  padding: 20px;
+}
+
+.userTable th {
+  background-color: #b0acac;
+  font-weight: bold;
+  position: sticky;
+  top: 0; /* Mantiene los encabezados en la parte superior */
+  z-index: 10; /* Asegura que los encabezados están sobre otros elementos */
+}
+
+.userTable tbody tr:hover {
+  background-color: #f9f9f9; /* Color suave para la selección de fila */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para dar efecto de elevación */
+  cursor: pointer;
+}
+
+.userTable tbody tr:last-child:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 -2px 6px rgba(0, 0, 0, 0.1); /* Menos intensidad de sombra hacia abajo */
+}
+
+/* Estilos para los botones dentro de la tabla */
+.userTable .add {
+  margin: 0 5px;
+}
+
+/* Checkbox más grande */
+input[type="checkbox"] {
+  width: 38px;
+  height: 38px;
+  cursor: pointer;
+  margin-right: 8px; /* Añadir espacio entre el checkbox y el texto */
+  border: none;
+}
+
+@media screen and (max-width: 768px) {
+  .userTable,
+  .userTable th,
+  .userTable td {
+    display: block;
+  }
+  .userTable th {
+    text-align: right;
+  }
+  .userTable td {
+    text-align: right;
+  }
+}
+
+.buttonTopLeft {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+}
+
+.generalButton {
+  /* Asegúrate de que los colores y los estilos sean consistentes */
+  padding: 10px 20px; /* Ajusta el padding según lo necesario */
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+.generalButton:hover {
+  transform: scale(
+    1.05
+  ); /* Aumentar ligeramente el tamaño al pasar el cursor */
+}
+
+.generalButton.Ver {
+  background-color: var(--color-green-dark);
+}
+.generalButton.Editar {
+  background-color: var(--color-button-blue);
+}
+.generalButton.Eliminar {
+  background-color: var(--color-red);
+}
+
+.actionsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px; /* Adjust the gap as needed */
+}
+
+.modalOverlayConf {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(56, 55, 55, 0.249);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalOverlayConfig {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(129, 129, 129, 0.581);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Estilos unificados para el overlay de los modales */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(
+    129,
+    129,
+    129,
+    0.581
+  ); /* Ajusta la opacidad para que sea más transparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

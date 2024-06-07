@@ -1,0 +1,100 @@
+.mainP {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  align-items: center;
+  top: 2%;
+  gap: 40px;
+  width: 70%;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center; /* Centrar horizontalmente */
+  gap: 10px;
+}
+
+.als {
+  height: 55vh;
+  width: 100%;
+  overflow-y: scroll;
+  background-color: var(--white-background);
+  border-radius: 30px; /* Agrega border radius */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+}
+
+.mainP .mensaje {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
+
+.alTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.alTable th,
+.alTable td {
+  text-align: center;
+  padding: 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.alTable th {
+  background-color: var(--white-background);
+  font-weight: bold;
+}
+
+.alTable thead {
+  position: sticky;
+  top: 0;
+  background-color: var(
+    --white-background
+  ); /* Puedes ajustar el color de fondo según tu diseño */
+}
+
+/* Ajusta el estilo del borde inferior del encabezado para que se vea mejor */
+.alTable th {
+  border-bottom: 2px solid #ddd; /* Puedes ajustar el grosor y el color del borde según tu diseño */
+}
+
+.caducado {
+  color: red;
+}
+
+.por-caducar {
+  color: #d68d00;
+}
+
+.modalOverlayConf {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mainP .info-banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100px;
+}
+
+.mainP .info-banner img {
+  width: 15%;
+  height: 100%;
+}
+
+.mainP .info-banner p {
+  font-size: 20px;
+  font-weight: 700;
+  background-color: var(--white-background);
+  padding: 4% 15%;
+}

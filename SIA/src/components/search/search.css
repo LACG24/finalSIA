@@ -1,0 +1,123 @@
+.search-bar-2 {
+  display: flex;
+  align-items: center;
+  width: 80%;
+  height: 40px;
+  margin: 20px 0;
+}
+
+.search-bar-2 input {
+  border: none;
+  height: 95%;
+  width: 80%; /* Modificado para que el input ocupe el 80% del ancho */
+  font-size: 16px; /* Modificado para que sea más legible */
+  margin: 0 2%;
+}
+
+.search-bar-2 .icon-button {
+  width: 100%; /* Modificado para que todos los botones tengan el mismo ancho */
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: var(--color-gray);
+
+  cursor: pointer;
+  font-size: 20px; /* Modificado para que sea más legible */
+}
+
+/* Estilos para el botón de añadir */
+.search-bar-2 .icon-button.add {
+  border-radius: 100px 0 0 100px;
+}
+
+/* Estilos para el botón de eliminar */
+.search-bar-2 .icon-button.delete {
+  border-radius: 0 100px 100px 0;
+  cursor: not-allowed;
+}
+
+.search-bar-2 .icon-button.active-add {
+  background-color: #4caf50; /* Green */
+  color: white;
+}
+
+.search-bar-2 .icon-button.active-delete {
+  background-color: #f44336; /* Red */
+  color: white;
+  cursor: pointer;
+}
+.search-bar-2 .addCart {
+  position: relative; /* Agrega posición relativa al contenedor del botón de añadir */
+  width: 10%; /* Modificado para que el botón de añadir tenga un ancho fijo */
+  height: 100%;
+}
+
+.search-bar-producto-2 {
+  background-color: #d8f3f9;
+}
+
+.search-bar-cantidad-2 {
+  background-color: #d8f9e7;
+}
+
+.search-bar-marca-2 {
+  background-color: #e7d8f9;
+}
+
+.search-bar-stock-2 {
+  background-color: #f9f3d8;
+}
+
+.search-bar-caducidad-2 {
+  background-color: #f9d8d8;
+}
+
+.search-bar-2 .addCart .addCartNumber {
+  position: absolute;
+  top: -10px;
+  right: -10px; /* Posición relativa al contenedor del botón */
+  background-color: #f44336; /* Red */
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-bar-2 .deleteCart {
+  position: relative; /* Agrega posición relativa al contenedor del botón de eliminar */
+  width: 10%;
+  height: 100%;
+}
+
+.search-bar-2 .deleteCart .deleteCartNumber {
+  position: absolute;
+  top: -10px;
+  right: -10px; /* Posición relativa al contenedor del botón */
+  background-color: #f44336; /* Red */
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10px;
+  font-weight: bold;
+  border: 1px solid black;
+}
+
+.hidden {
+  display: none;
+}
+
+/*disabled input*/
+
+.search-bar-2 input:disabled {
+  background-color: #f1f1f1;
+  cursor: not-allowed;
+}

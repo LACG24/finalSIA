@@ -1,0 +1,9 @@
+div.layOut {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+div.layOut > * {
+  margin-bottom: 40px; /* Aplica un margen inferior a todos los hijos directos */
+}

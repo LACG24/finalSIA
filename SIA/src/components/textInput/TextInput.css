@@ -1,0 +1,33 @@
+.textInput {
+  background-color: white;
+  flex-direction: column;
+  align-items: left;
+  display: flex;
+  width: 50%;
+}
+
+.textInput label {
+  font-weight: bold;
+  font-size: large;
+  background-color: var(--white-background);
+  margin: 0;
+  padding-bottom: 5px;
+}
+/*update textinputq*/
+.textInput input {
+  background-color: white;
+  color: black;
+  height: 40px;
+  border: none;
+}
+
+.textInput input:focus {
+  outline-color: black;
+}
+
+.errorMessage {
+  color: red;
+  font-size: small;
+  margin-top: 5px;
+  background-color: var(--white-background);
+}

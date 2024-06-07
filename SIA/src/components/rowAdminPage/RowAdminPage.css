@@ -1,0 +1,105 @@
+.rowAdminPage {
+  align-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row;
+  width: 100%;
+  text-align: center;
+  font-weight: 400;
+  height: 9.3%;
+}
+
+.rowAdminPage:hover {
+  background-color: #767dff1c;
+}
+
+.rowChecked p {
+  color: var(--color-red) !important;
+}
+
+.rowAdminPage .checkBox {
+  width: 28px;
+  height: 28px;
+}
+
+.rowAdminPage .checkBox:disabled {
+  cursor: not-allowed;
+}
+
+.rowAdminPage__buttons {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 15%;
+}
+
+.rowAdminPage .productLink {
+  width: 30%;
+  text-align: initial;
+}
+
+.rowAdminPage .productLink:hover .product {
+  color: #00d0ff;
+}
+
+.rowAdminPage .quantity {
+  width: 10%;
+}
+
+.rowAdminPage .brand {
+  width: 15%;
+}
+
+.rowAdminPage .stockBar {
+  width: 15%;
+}
+
+.rowAdminPage .cadDate {
+  width: 15%;
+}
+
+.rowChecked .stockBar input {
+  background: none;
+  color: var(--color-red);
+  border: none;
+  width: 100%;
+}
+
+.rowChecked .stockBar button {
+  display: none;
+}
+
+.rowAdminPage p {
+  font-weight: 600;
+  font-size: 1.5vw;
+  text-decoration: none;
+  color: black;
+}
+
+.addDifferentCad {
+  background-color: #767dff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 5px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.addDifferentCad:hover {
+  background-color: #a9adf2;
+}
+
+.addDifferentCad:active {
+  background-color: #767dff;
+}
+
+.rowAdminPage.red p {
+  color: var(--color-red);
+}
+
+.rowAdminPage.green p {
+  color: var(--color-green-dark);
+}

@@ -1,0 +1,73 @@
+.addProduct {
+  width: 90%;
+  height: 100vh; /* Establece la altura al 100% de la altura de la ventana */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inputContainer > * {
+  height: 80px;
+}
+
+.addProduct .confPopUp {
+  width: 50%;
+  z-index: 9999 !important;
+}
+
+.addProduct .confPopUp .buttonContainer {
+  width: 100%;
+}
+
+.addProductTitle {
+  width: 100%; /* Ajusta el ancho al 100% del contenedor principal */
+  margin: 5vh 5vh;
+  height: 20vh; /* Modifica la altura según tus necesidades */
+}
+
+.addProductTitle .info-banner {
+  height: 50%;
+}
+
+.addProductTitle .returnButtonContainer {
+  height: 45%;
+  margin-top: 2%;
+}
+
+.addProductContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 85%; /* Ajusta el ancho al 100% del contenedor principal */
+  height: 58vh; /* Ajusta la altura al 90% del contenedor principal */
+  background-color: var(--white-background);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  padding: 3% 0 3% 0;
+}
+
+.addProductContainer button {
+  width: 20%; /* Ajusta el ancho al 30% del contenedor padre */
+  height: 40px;
+}
+
+.inputContainer {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%; /* Ajusta el ancho al 100% del contenedor padre */
+}
+
+.inputContainer > * {
+  width: 40%;
+}
+
+/* Añade reglas para evitar el desbordamiento horizontal en caso de contenido grande */
+input,
+select {
+  max-width: 100%; /* Evita que los elementos se desborden */
+}

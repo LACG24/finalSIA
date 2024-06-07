@@ -1,0 +1,25 @@
+.textInputAdd {
+  background-color: white;
+  flex-direction: column;
+  align-items: left;
+  width: 90%;
+}
+
+.textInputAdd label {
+  font-weight: normal;
+  font-size: large;
+  background-color: var(--color-gray);
+  margin: 0;
+  padding-bottom: 5px;
+}
+/*update textinputq*/
+.textInputAdd input {
+  background-color: white;
+  color: rgb(0, 0, 0);
+  height: 40px;
+  border: none;
+}
+
+.textInputAdd input:focus {
+  outline-color: blue;
+}

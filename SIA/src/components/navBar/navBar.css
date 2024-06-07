@@ -1,0 +1,44 @@
+.navbar {
+  position: fixed; /* Establece la posición fija para que flote */
+  z-index: 999; /* Asegura que esté por encima de otros elementos */
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-link {
+  text-decoration: none;
+  border-radius: 20px;
+  background-color: #007bff;
+  color: #ffffff;
+}
+
+.nav-link:hover {
+  background-color: #0056b3;
+}
+
+.navbar.hidden {
+  display: none;
+}
+
+.hideButton {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  padding: 10px; /* Reducir el relleno para hacer el botón más pequeño */
+  width: 50px; /* Fijar un ancho específico */
+  height: 50px; /* Fijar una altura específica */
+  z-index: 999;
+  cursor: pointer;
+}
+
+/* Estilo para la imagen dentro del botón */
+.button-icon {
+  width: 100%; /* Ajustar al 100% del contenedor del botón */
+  height: 100%; /* Ajustar al 100% del contenedor del botón */
+}

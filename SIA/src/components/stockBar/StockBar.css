@@ -1,0 +1,69 @@
+.stockBar {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.cloud {
+  position: absolute; /* Posiciona el contenedor de nube de manera absoluta */
+  top: -130%; /* Ajusta la distancia desde la parte superior del contenedor principal */
+  left: 65%; /* Ajusta la posición horizontal centrada */
+  transform: translateX(
+    -50%
+  ); /* Centra el contenedor de nube horizontalmente */
+  z-index: 1; /* Asegura que el contenedor de nube esté por encima del input */
+  cursor: pointer;
+}
+
+.hide {
+  display: none;
+}
+
+.cloudIcon {
+  right: 0;
+  width: 30px;
+  height: 30px;
+}
+
+.cloudText {
+  position: absolute;
+  top: 42%; /* Coloca el borde superior del elemento en el 50% del contenedor */
+  left: 50%; /* Coloca el borde izquierdo del elemento en el 50% del contenedor */
+  transform: translate(
+    -50%,
+    -50%
+  ); /* Centra el elemento en el 50% tanto vertical como horizontalmente */
+  font-size: 10px !important;
+  font-weight: bold !important;
+  text-align: center; /* Alineación horizontal */
+}
+
+.stockBar input {
+  width: 50%;
+  text-align: center;
+  margin: 0 5% 0 5%;
+  border-radius: 5px;
+  border-color: #868686;
+}
+
+.stockBar button {
+  width: 20%;
+  height: 20%;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+  text-align: center;
+}
+
+.stockBar button:active {
+  background-color: rgb(233, 231, 231);
+}
+
+/* resposive for mobile */
+
+@media (max-width: 768px) {
+  .stockBar input {
+    font-size: 0.5rem;
+  }
+}

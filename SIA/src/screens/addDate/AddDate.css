@@ -1,0 +1,196 @@
+.addDate {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 10px 5px;
+  margin-top: 50px;
+}
+
+/* Estilos para el contenedor del pop-up */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semi-transparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Estilos para el contenido del pop-up */
+.modalContent {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra */
+  max-width: 80%; /* Máximo ancho del pop-up */
+  max-height: 80%; /* Máxima altura del pop-up */
+  overflow: auto; /* Permitir desplazamiento si el contenido es demasiado largo */
+}
+
+.mensajeDA {
+  display: flex;
+  flex-direction: column;
+  margin-left: 8%;
+}
+
+.buttonBackDA {
+  display: flex;
+  margin: 0% 12%; /* Centrar horizontalmente */
+  align-items: flex-start; /* Ajusta el comportamiento de align-items para .buttonBackAdd */
+}
+
+.buttonBackDA .titulo {
+  margin-top: 25px;
+  margin-bottom: 0px;
+  font-weight: bold;
+  font-size: 42px;
+}
+
+.infoDA {
+  display: flex;
+  margin-left: 12%;
+}
+
+.infoDA h2 {
+  margin-right: 2%;
+  font-weight: bold;
+  font-size: 150%;
+}
+
+.infoDA h3 {
+  font-size: 150%;
+}
+
+.tablaGeneral {
+  font-size: 22px;
+  text-align: center;
+  width: 50%; /* Ajustar automáticamente al tamaño de los datos */
+  display: table;
+  background: var(--color-gray);
+  margin: 0 auto; /* Centra la tablaGeneral en su contenedor padre */
+}
+
+.tablaGeneral .button {
+  margin-left: 80%;
+  margin-top: 1%;
+  margin-bottom: 3%;
+}
+
+.tabla1 {
+  border-spacing: 0;
+  border-collapse: collapse;
+  margin: 3% auto; /* Centra la tabla1 dentro de tablaGeneral */
+}
+
+.tabla1 th {
+  padding: 8px;
+  border-bottom: 1px solid var(--color-gray);
+  text-align: center;
+  background: var(--color-gray);
+  padding-right: 20px;
+  padding-left: 20px;
+  font-weight: bold;
+}
+
+.tabla1 td {
+  border-bottom: 1px solid var(--color-gray);
+  background: var(--color-gray);
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.botonesAddDA {
+  margin-top: 2%;
+  margin: 0% auto;
+}
+
+.botonesAddDA button {
+  margin-right: 20px;
+  padding: 13px 35px;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalContent {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  width: 300px;
+  height: 70px;
+  text-align: center;
+}
+
+.modalContent button {
+  margin-top: 20px;
+  background-color: var(--color-button-blue);
+  color: white;
+  border: none;
+  width: 50px;
+  height: 30px;
+  border-radius: 15%;
+}
+
+.editProductTitle {
+  margin: 2%;
+  width: 100%;
+  height: 30%;
+}
+
+.editProductContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 85%; /* Ajusta el ancho al 100% del contenedor principal */
+  height: 60%; /* Ajusta la altura al 90% del contenedor principal */
+  background-color: var(--color-gray);
+  margin: 2% 0 2% 0;
+  padding: 3% 0 3% 0;
+}
+
+.editProductContainer button {
+  width: 20%;
+  height: 40px;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.inputContainer > * {
+  width: 40%;
+  margin: 1%;
+}
+
+input,
+select {
+  max-width: 100%;
+}
+
+.editProductContainer .generalButton {
+  margin-top: 30px;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}

@@ -1,0 +1,19 @@
+.createInput {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  width: 50%;
+}
+
+.createInput p {
+  font-weight: normal;
+  font-size: large;
+}
+
+.createInput input {
+  background-color: var(--color-gray);
+  color: black;
+  border: none;
+  height: 40px;
+}

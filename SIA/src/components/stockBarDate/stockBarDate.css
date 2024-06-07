@@ -1,0 +1,27 @@
+.stockBar {
+    display: flex;
+    align-items: center;
+  }
+  
+  .stockBar input {
+    width: 30%;
+    text-align: center;
+    margin: 0 5% 0 5%;
+    border-radius: 5px;
+    border-color: #868686;
+  }
+  
+  .stockBar button {
+    width: 20%;
+    height: 20%;
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+    text-align: center;
+  }
+  
+  .stockBar button:active {
+    background-color: rgb(233, 231, 231);
+  }
+  

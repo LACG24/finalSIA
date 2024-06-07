@@ -1,0 +1,139 @@
+.headerDropDownContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.dropDownContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: space-between;
+  width: 50%;
+}
+
+.dropDownContainer label {
+  font-weight: normal;
+  font-size: large;
+  background-color: var(--white-background);
+  margin: 0;
+  padding-bottom: 5px;
+  font-weight: bold;
+}
+
+.dropDownContainer select {
+  background-color: white;
+  height: 40px;
+  border: none;
+}
+
+.dropDownContainer select:focus {
+  background-color: #f9f9f9;
+}
+
+.dropDownContainer select:hover {
+  cursor: pointer;
+}
+
+.dropDownContainer .editButtonCRD {
+  background-color: var(--color-gray);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.dropDownContainer .editButtonCRD:hover {
+  background-color: var(--color-button-blue);
+}
+
+.dropDownContainer .editButtonCRD img {
+  width: 80%;
+  height: 80%;
+}
+
+.dropdown-crd {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  overflow-y: scroll;
+  height: 50vh;
+  overflow-x: hidden;
+  left: 0;
+  z-index: 1;
+  background-color: white;
+  border: 2px solid #ccc; /* Añade un borde para definir el dropdown */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.dropdown-crd-header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+  background-color: var(--color-gray);
+}
+
+.dropdown-crd-header button {
+  background-color: var(--color-gray);
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  border: none;
+}
+
+.dropdown-crd-header button img {
+  width: 80%;
+  height: 80%;
+}
+
+.dropdownCRD-options {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  border: 1px solid #ccc;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dropdownCRD-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  border-bottom: 1px solid #ccc;
+  padding: 0 10% 0 10%;
+  cursor: pointer;
+}
+
+.dropdownCRD-option:hover {
+  background-color: var(--white-background);
+}
+
+.dropdownCRD-options .remove-button {
+  cursor: pointer;
+  margin: 10px 0px 10px 0px;
+}
+
+.dropdownCRD-options .remove-button img {
+  width: 20px;
+  height: 20px;
+}
+
+.placeholder-button {
+  width: 20px;
+  height: 60px;
+}
+.dropdownCRD-options .remove-button:hover {
+  background-color: var(--color-red);
+  border: none;
+}

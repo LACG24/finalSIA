@@ -1,0 +1,44 @@
+.info-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  height: 20vh;
+}
+
+.info-banner-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* Centra horizontalmente el contenido */
+  width: 80%;
+  height: 100%;
+  font-size: 100%;
+  font-weight: 700;
+  background-color: var(--white-background);
+  text-align: center;
+  overflow: hidden; /* Asegura que el contenido no se salga del contenedor */
+  box-sizing: border-box; /* Incluye padding y border en el tamaño total del elemento */
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+}
+
+.info-banner img {
+  height: 100%;
+  width: 15%;
+  margin-right: 2%;
+}
+
+.info-banner p {
+  width: 100%; /* Asegura que el párrafo ocupe el 100% del ancho del contenedor */
+  padding-left: 5%;
+  padding-right: 5%;
+  font-size: 1em; /* Ajusta el tamaño de la fuente si es necesario */
+  font-weight: 700;
+  text-align: center;
+  margin: 0; /* Elimina el margen para asegurar que el texto esté completamente dentro del contenedor */
+  display: flex;
+  align-items: center; /* Centra el texto verticalmente */
+  justify-content: center; /* Centra el texto horizontalmente */
+  height: 100%; /* Asegura que el párrafo ocupe el 100% de la altura del contenedor */
+}

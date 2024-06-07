@@ -1,0 +1,18 @@
+.returnButtonContainer {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  align-items: center;
+}
+
+.returnButton {
+  width: 100px;
+  height: 58px;
+  border-radius: 100px 0 0 100px;
+  margin-right: 20px;
+}
+
+.returnP {
+  font-weight: bold;
+  font-size: 2em;
+}

@@ -52,7 +52,7 @@ export function SearchBar({
         type="text"
         placeholder={
           disabled
-            ? "Busqueda deshabilitada... (desactive los filtros de la barra lateral para habilitar la busqueda.)"
+            ? `Deje activado solo el filtro "Mostrar solo alimentos con disponibilidad" para habilitar la busqueda...`
             : searchType === 0
             ? "Buscando por producto..."
             : searchType === 1

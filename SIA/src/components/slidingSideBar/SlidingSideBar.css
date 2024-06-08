@@ -88,15 +88,8 @@
   width: 100%;
 }
 
-.headerSlider button {
-  border: none;
-  border-radius: 20px;
-  width: 50%;
-  margin-left: 20px;
-  height: 25px;
-  cursor: pointer;
-  color: white;
-  font-weight: bold;
+.headerSlider .info-banner {
+  width: 100%;
 }
 
 .showWithoutStock {

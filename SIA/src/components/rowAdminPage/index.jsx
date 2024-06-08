@@ -19,7 +19,6 @@ export function RowAdminPage({
   savedChanges,
   setSavedChanges,
   stockResetId,
-  showWithoutStock,
 }) {
   const [isChecked, setIsChecked] = useState(selectedIds.includes(id));
   const [resetCheckbox, setResetCheckbox] = useState(false);
@@ -33,12 +32,7 @@ export function RowAdminPage({
 
   const quantity = `${amount} ${unit}`;
 
-  const rowClass =
-    !showWithoutStock && stock === 0
-      ? "rowAdminPage hidden"
-      : isChecked
-      ? "rowAdminPage rowChecked"
-      : "rowAdminPage";
+  const rowClass = isChecked ? "rowAdminPage rowChecked" : "rowAdminPage";
 
   const handleCheckboxChange = (event) => {
     onChange(event, id); // Llamar a la función de onChange del componente padre
@@ -47,10 +41,9 @@ export function RowAdminPage({
   return (
     <div className={rowClass + " " + color}>
       <div className="rowAdminPage__buttons">
-      <Link to={`/addDate/${id}`}
-        style={{ textDecoration: "none" }}>
-        <button className="addDifferentCad">+</button>
-      </Link>
+        <Link to={`/addDate/${id}`} style={{ textDecoration: "none" }}>
+          <button className="addDifferentCad">+</button>
+        </Link>
         <input
           className="checkBox"
           type="checkbox"

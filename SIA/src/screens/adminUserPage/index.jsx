@@ -179,12 +179,19 @@ export const UserPage = () => {
                   <tr key={user.id}>
                     <td>
                       <input
+                        disabled={
+                          user.id === "SAdmin" ||
+                          user.id === "User01" ||
+                          user.id === "User02" ||
+                          user.id === "User03"
+                        }
                         type="checkbox"
                         checked={selectedUserIds.includes(user.id)}
                         onChange={(e) => handleCheckboxChange(e, user.id)}
                         className="checkboxLarge"
                       />
                     </td>
+
                     <td>{user.id}</td>
                     <td>{user.email}</td>
                     <td>
@@ -202,14 +209,17 @@ export const UserPage = () => {
                       />
 
                       {/* Si el usuario es SAdmin, no se puede eliminar */}
-                      {user.id !== "SAdmin" && (
-                        <GeneralButton
-                          textElement=" Eliminar "
-                          color="var(--color-red)"
-                          className="generalButton"
-                          onClick={() => setIsModalOpen(user.id)}
-                        />
-                      )}
+                      {user.id !== "SAdmin" &&
+                        user.id !== "User01" &&
+                        user.id !== "User02" &&
+                        user.id !== "User03" && (
+                          <GeneralButton
+                            textElement=" Eliminar "
+                            color="var(--color-red)"
+                            className="generalButton"
+                            onClick={() => setIsModalOpen(user.id)}
+                          />
+                        )}
                       {isModalOpen === user.id && (
                         <div className="modalOverlay">
                           <ConfirmationPopUp

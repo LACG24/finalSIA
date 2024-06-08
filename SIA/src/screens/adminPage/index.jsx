@@ -38,6 +38,8 @@ export const AdminPage = ({ selectedIds, setSelectedIds }) => {
 
   const [modificationMap, setModificationMap] = useState({});
 
+  const [saveExcelPopUp, setSaveExcelPopUp] = useState(false);
+
   const [modificationConfirmation, setModificationConfirmation] =
     useState(false);
 
@@ -48,7 +50,7 @@ export const AdminPage = ({ selectedIds, setSelectedIds }) => {
   const [options, setOptions] = useState({
     f1: false,
     f2: false,
-    f3: false,
+    f3: true,
     f4: false,
     o1: false,
     o2: false,
@@ -56,8 +58,6 @@ export const AdminPage = ({ selectedIds, setSelectedIds }) => {
     o4: false,
     o5: false,
   });
-
-  const [showWithoutStock, setShowWithoutStock] = useState(true);
 
   const handleSaveChanges = async () => {
     try {
@@ -77,8 +77,6 @@ export const AdminPage = ({ selectedIds, setSelectedIds }) => {
                   actionType: 1,
                   quantity: modificationMap[key][0] - modificationMap[key][1],
                 };
-
-         
 
           await fetch(`http://${API_HOST}:${API_PORT}/usuarios/stock/`, {
             method: "POST",
@@ -186,152 +184,37 @@ export const AdminPage = ({ selectedIds, setSelectedIds }) => {
       !options.o4 &&
       !options.o5
     ) {
-      if (searchTerm === "") {
-        fetch(
-          `http://${API_HOST}:${API_PORT}/alimentos/join/marca?page=${currentPage}&pageSize=${pageSize}`
-        )
-          .then((response) => {
-            if (response.ok) {
-              return response.json();
-            }
-            throw new Error("Error al obtener los alimentos");
-          })
-          .then((data) => {
-            setOriginalAlimentos(data);
-            setFilteredAlimentos(data);
-          })
-          .catch((error) => {
-            console.error("Error:", error.message);
-          });
+      fetch(
+        `http://${API_HOST}:${API_PORT}/alimentos/join/marca?page=${currentPage}&pageSize=${pageSize}`
+      )
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error("Error al obtener los alimentos");
+        })
+        .then((data) => {
+          setOriginalAlimentos(data);
+          setFilteredAlimentos(data);
+        })
+        .catch((error) => {
+          console.error("Error:", error.message);
+        });
 
-        fetch(`http://${API_HOST}:${API_PORT}/alimentos/count`)
-          .then((response) => {
-            if (response.ok) {
-              return response.json();
-            }
-            throw new Error("Error al obtener los alimentos");
-          })
-          .then((data) => {
-            setOriginalTotalPages(Math.ceil(data.total / pageSize));
-            setTotalPages(Math.ceil(data.total / pageSize));
-          })
-          .catch((error) => {
-            console.error("Error:", error.message);
-          });
-      } else if (searchType === 0) {
-       
-        fetch(
-          `http://${API_HOST}:${API_PORT}/alimentos/busqueda/nombre/${searchTerm}?page=${currentPage}&pageSize=${pageSize}`
-        )
-          .then((response) => {
-            if (response.ok) {
-              return response.json();
-            }
-            throw new Error("Error al obtener los alimentos");
-          })
-
-          .then((data) => {
-            console.log(
-              "alimentos",
-              data.alimentos,
-              "total",
-              data.total,
-              "data",
-              data
-            );
-            setOriginalAlimentos(data.alimentos);
-            setFilteredAlimentos(data.alimentos);
-            setOriginalTotalPages(Math.ceil(data.total / pageSize));
-            setTotalPages(Math.ceil(data.total / pageSize));
-          })
-          .catch((error) => {
-            console.error("Error:", error.message);
-          });
-      } else if (searchType === 1) {
-        fetch(
-          `http://${API_HOST}:${API_PORT}/alimentos/busqueda/cantidad/${searchTerm}?page=${currentPage}&pageSize=${pageSize}`
-        )
-          .then((response) => {
-            if (response.ok) {
-              return response.json();
-            }
-            throw new Error("Error al obtener los alimentos");
-          })
-          .then((data) => {
-            setOriginalAlimentos(data.alimentos);
-            setFilteredAlimentos(data.alimentos);
-            setOriginalTotalPages(Math.ceil(data.total / pageSize));
-            setTotalPages(Math.ceil(data.total / pageSize));
-          })
-          .catch((error) => {
-            console.error("Error:", error.message);
-          });
-      } else if (searchType === 2) {
-        fetch(
-          `http://${API_HOST}:${API_PORT}/alimentos/busqueda/marca/${searchTerm}?page=${currentPage}&pageSize=${pageSize}`
-        )
-          .then((response) => {
-            if (response.ok) {
-              return response.json();
-            }
-            throw new Error("Error al obtener los alimentos");
-          })
-          .then((data) => {
-            setOriginalAlimentos(data.alimentos);
-            setFilteredAlimentos(data.alimentos);
-            setOriginalTotalPages(Math.ceil(data.total / pageSize));
-            setTotalPages(Math.ceil(data.total / pageSize));
-          })
-          .catch((error) => {
-            console.error("Error:", error.message);
-          });
-      } else if (searchType === 3) {
-        fetch(
-          `http://${API_HOST}:${API_PORT}/alimentos/busqueda/stock/${searchTerm}?page=${currentPage}&pageSize=${pageSize}`
-        )
-          .then((response) => {
-            if (response.ok) {
-              return response.json();
-            }
-            throw new Error("Error al obtener los alimentos");
-          })
-          .then((data) => {
-            setOriginalAlimentos(data.alimentos);
-            setFilteredAlimentos(data.alimentos);
-            setOriginalTotalPages(Math.ceil(data.total / pageSize));
-            setTotalPages(Math.ceil(data.total / pageSize));
-          })
-          .catch((error) => {
-            console.error("Error:", error.message);
-          });
-      } else if (searchType === 4) {
-        // Formatear la fecha de búsqueda para que coincida con el formato aceptado por la API
-        var formattedSearchTerm = "sin caducidad";
-        if (searchTerm.trim().toLowerCase() !== "sin caducidad") {
-          formattedSearchTerm = searchTerm.replace(/\//g, "-");
-        } else {
-          formattedSearchTerm = "sin caducidad";
-        }
-
-        fetch(
-          `http://${API_HOST}:${API_PORT}/alimentos/busqueda/caducidad/${formattedSearchTerm}?page=${currentPage}&pageSize=${pageSize}`
-        )
-          .then((response) => {
-            if (response.ok) {
-              return response.json();
-            }
-            throw new Error("Error al obtener los alimentos");
-          })
-          .then((data) => {
-            setOriginalAlimentos(data.alimentos);
-            setFilteredAlimentos(data.alimentos);
-            setOriginalTotalPages(Math.ceil(data.total / pageSize));
-            setTotalPages(Math.ceil(data.total / pageSize));
-          })
-          .catch((error) => {
-            console.error("Error:", error.message);
-          });
-      }
+      fetch(`http://${API_HOST}:${API_PORT}/alimentos/count`)
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error("Error al obtener los alimentos");
+        })
+        .then((data) => {
+          setOriginalTotalPages(Math.ceil(data.total / pageSize));
+          setTotalPages(Math.ceil(data.total / pageSize));
+        })
+        .catch((error) => {
+          console.error("Error:", error.message);
+        });
 
       //alimentos caducados dCad
     } else if (options.f1 && options.o1) {
@@ -730,22 +613,136 @@ export const AdminPage = ({ selectedIds, setSelectedIds }) => {
       !options.o4 &&
       !options.o5
     ) {
-      fetch(
-        `http://${API_HOST}:${API_PORT}/alimentos/disponibles?page=${currentPage}&pageSize=${pageSize}`
-      )
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          }
-          throw new Error("Error al obtener los alimentos");
-        })
-        .then((data) => {
-          setOriginalAlimentos(data);
-          setFilteredAlimentos(data);
-        })
-        .catch((error) => {
-          console.error("Error:", error.message);
-        }); // mostrar solo alimentos nodisponibles sin orden
+      if (searchTerm === "") {
+        fetch(
+          `http://${API_HOST}:${API_PORT}/alimentos/disponibles?page=${currentPage}&pageSize=${pageSize}`
+        )
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error("Error al obtener los alimentos");
+          })
+          .then((data) => {
+            setOriginalAlimentos(data);
+            setFilteredAlimentos(data);
+          })
+          .catch((error) => {
+            console.error("Error:", error.message);
+          }); // mostrar solo alimentos nodisponibles sin orden
+      } else if (searchType === 0) {
+        fetch(
+          `http://${API_HOST}:${API_PORT}/alimentos/busqueda/nombre/${searchTerm}?page=${currentPage}&pageSize=${pageSize}`
+        )
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error("Error al obtener los alimentos");
+          })
+
+          .then((data) => {
+            console.log(
+              "alimentos",
+              data.alimentos,
+              "total",
+              data.total,
+              "data",
+              data
+            );
+            setOriginalAlimentos(data.alimentos);
+            setFilteredAlimentos(data.alimentos);
+            setOriginalTotalPages(Math.ceil(data.total / pageSize));
+            setTotalPages(Math.ceil(data.total / pageSize));
+          })
+          .catch((error) => {
+            console.error("Error:", error.message);
+          });
+      } else if (searchType === 1) {
+        fetch(
+          `http://${API_HOST}:${API_PORT}/alimentos/busqueda/cantidad/${searchTerm}?page=${currentPage}&pageSize=${pageSize}`
+        )
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error("Error al obtener los alimentos");
+          })
+          .then((data) => {
+            setOriginalAlimentos(data.alimentos);
+            setFilteredAlimentos(data.alimentos);
+            setOriginalTotalPages(Math.ceil(data.total / pageSize));
+            setTotalPages(Math.ceil(data.total / pageSize));
+          })
+          .catch((error) => {
+            console.error("Error:", error.message);
+          });
+      } else if (searchType === 2) {
+        fetch(
+          `http://${API_HOST}:${API_PORT}/alimentos/busqueda/marca/${searchTerm}?page=${currentPage}&pageSize=${pageSize}`
+        )
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error("Error al obtener los alimentos");
+          })
+          .then((data) => {
+            setOriginalAlimentos(data.alimentos);
+            setFilteredAlimentos(data.alimentos);
+            setOriginalTotalPages(Math.ceil(data.total / pageSize));
+            setTotalPages(Math.ceil(data.total / pageSize));
+          })
+          .catch((error) => {
+            console.error("Error:", error.message);
+          });
+      } else if (searchType === 3) {
+        fetch(
+          `http://${API_HOST}:${API_PORT}/alimentos/busqueda/stock/${searchTerm}?page=${currentPage}&pageSize=${pageSize}`
+        )
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error("Error al obtener los alimentos");
+          })
+          .then((data) => {
+            setOriginalAlimentos(data.alimentos);
+            setFilteredAlimentos(data.alimentos);
+            setOriginalTotalPages(Math.ceil(data.total / pageSize));
+            setTotalPages(Math.ceil(data.total / pageSize));
+          })
+          .catch((error) => {
+            console.error("Error:", error.message);
+          });
+      } else if (searchType === 4) {
+        // Formatear la fecha de búsqueda para que coincida con el formato aceptado por la API
+        var formattedSearchTerm = "sin caducidad";
+        if (searchTerm.trim().toLowerCase() !== "sin caducidad") {
+          formattedSearchTerm = searchTerm.replace(/\//g, "-");
+        } else {
+          formattedSearchTerm = "sin caducidad";
+        }
+
+        fetch(
+          `http://${API_HOST}:${API_PORT}/alimentos/busqueda/caducidad/${formattedSearchTerm}?page=${currentPage}&pageSize=${pageSize}`
+        )
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error("Error al obtener los alimentos");
+          })
+          .then((data) => {
+            setOriginalAlimentos(data.alimentos);
+            setFilteredAlimentos(data.alimentos);
+            setOriginalTotalPages(Math.ceil(data.total / pageSize));
+            setTotalPages(Math.ceil(data.total / pageSize));
+          })
+          .catch((error) => {
+            console.error("Error:", error.message);
+          });
+      }
     } else if (
       options.f4 &&
       !options.o1 &&
@@ -886,7 +883,6 @@ export const AdminPage = ({ selectedIds, setSelectedIds }) => {
           console.error("Error:", error.message);
         }); // mostrar todos los alimentos ordenados por uEnt
     } else {
-     
     }
 
     //set pages according to alimentos
@@ -952,9 +948,8 @@ export const AdminPage = ({ selectedIds, setSelectedIds }) => {
           console.error("Error:", error.message);
         });
     } else {
-     
     }
-  }, [currentPage, options, pageSize, searchType, searchTerm]);
+  }, [currentPage, options, pageSize, searchType, searchTerm, savedChanges]);
 
   const goToPreviousPage = () => {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
@@ -1021,11 +1016,12 @@ export const AdminPage = ({ selectedIds, setSelectedIds }) => {
         link.parentNode.removeChild(link);
       })
       .catch((error) => console.error("Error:", error));
+    setSaveExcelPopUp(true);
   };
 
   return (
     <div className="adminPage">
-      <ReturnButton nav={"/mainPage"}/>
+      <ReturnButton nav={"/mainPage"} />
       <Guide
         message="Saludos a todos, bienvenidos al sistema de administración del albergue, el día de hoy centrense en comprenderlo :) "
         size={100}
@@ -1041,10 +1037,7 @@ export const AdminPage = ({ selectedIds, setSelectedIds }) => {
         searchType={searchType}
         goToFirstPage={goToFirstPage}
         disabled={
-          options.f1 ||
-          options.f2 ||
-          options.f3 ||
-          options.f4 ||
+          !options.f3 ||
           options.o1 ||
           options.o2 ||
           options.o3 ||
@@ -1052,12 +1045,7 @@ export const AdminPage = ({ selectedIds, setSelectedIds }) => {
           options.o5
         }
       />
-      <SlidingSideBar
-        options={options}
-        setOptions={setOptions}
-        showWithoutStock={showWithoutStock}
-        setShowWithoutStock={setShowWithoutStock}
-      />
+      <SlidingSideBar options={options} setOptions={setOptions} />
       <div className="alimentosBox">
         <div className="divHeaders">
           <button
@@ -1097,32 +1085,25 @@ export const AdminPage = ({ selectedIds, setSelectedIds }) => {
             Caducidad
           </button>
         </div>
-        {filteredAlimentos.map(
-          (alimento) => (
-            (
-              <RowAdminPage
-                showWithoutStock={showWithoutStock}
-                key={alimento.a_id}
-                id={alimento.a_id}
-                product={alimento.a_nombre}
-                amount={convertAmount(alimento.a_cantidad)}
-                unit={alimento.um_id}
-                brand={
-                  alimento.m_nombre == null ? "Sin marca" : alimento.m_nombre
-                }
-                stock={alimento.a_stock}
-                cadDate={alimento.a_fechaCaducidad}
-                onChange={handleCheckboxChange}
-                selectedIds={selectedIds}
-                modificationMap={modificationMap}
-                setModificationMap={setModificationMap}
-                savedChanges={savedChanges}
-                setSavedChanges={setSavedChanges}
-                stockResetId={stockResetId}
-              />
-            )
-          )
-        )}
+        {filteredAlimentos.map((alimento) => (
+          <RowAdminPage
+            key={alimento.a_id}
+            id={alimento.a_id}
+            product={alimento.a_nombre}
+            amount={convertAmount(alimento.a_cantidad)}
+            unit={alimento.um_id}
+            brand={alimento.m_nombre == null ? "Sin marca" : alimento.m_nombre}
+            stock={alimento.a_stock}
+            cadDate={alimento.a_fechaCaducidad}
+            onChange={handleCheckboxChange}
+            selectedIds={selectedIds}
+            modificationMap={modificationMap}
+            setModificationMap={setModificationMap}
+            savedChanges={savedChanges}
+            setSavedChanges={setSavedChanges}
+            stockResetId={stockResetId}
+          />
+        ))}
       </div>
       <div className="paginacion">
         <button
@@ -1202,6 +1183,17 @@ export const AdminPage = ({ selectedIds, setSelectedIds }) => {
             answer1="Ok"
             isOpen={savedChangesPopUp}
             closeModal={() => setSavedChangesPopUp(false)}
+          />
+        </div>
+      )}
+
+      {saveExcelPopUp && (
+        <div className="modalOverlayConf">
+          <ConfirmationPopUp
+            message="Se ha descargado el archivo de alimentos en formato Excel."
+            answer1="Ok"
+            isOpen={saveExcelPopUp}
+            closeModal={() => setSaveExcelPopUp(false)}
           />
         </div>
       )}

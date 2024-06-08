@@ -43,7 +43,6 @@
 .userTable tbody tr:hover {
   background-color: #f9f9f9; /* Color suave para la selección de fila */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para dar efecto de elevación */
-  cursor: pointer;
 }
 
 .userTable tbody tr:last-child:hover {
@@ -62,6 +61,11 @@ input[type="checkbox"] {
   cursor: pointer;
   margin-right: 8px; /* Añadir espacio entre el checkbox y el texto */
   border: none;
+}
+
+/* disabilitar el checkbox */
+input[type="checkbox"]:disabled {
+  cursor: not-allowed;
 }
 
 @media screen and (max-width: 768px) {

@@ -9,6 +9,7 @@ import { TextInput } from "../../components/textInput";
 
 const API_HOST = import.meta.env.VITE_API_HOST;
 const API_PORT = import.meta.env.VITE_API_PORT;
+
 export const CreateUser = () => {
   const [formData, setFormData] = useState({
     u_id: "",
@@ -50,7 +51,7 @@ export const CreateUser = () => {
     }
 
     // Validar el correo electrónico
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[^\s@]+(@[^\s@]+\.[^\s@]+)?$/;
     if (!emailRegex.test(formData.u_email)) {
       setError("Ingrese un correo electrónico válido.");
       return false;
@@ -112,18 +113,21 @@ export const CreateUser = () => {
           <TextInput
             label="Nombre de usuario"
             name="u_id"
+            id="u_id"
             value={formData.u_id}
             onChange={handleChange}
           />
           <TextInput
             label="Nombre"
             name="u_nombre"
+            id="u_nombre"
             value={formData.u_nombre}
             onChange={handleChange}
           />
           <TextInput
             label="Apellidos"
             name="u_apellidos"
+            id="u_apellidos"
             value={formData.u_apellidos}
             onChange={handleChange}
           />
@@ -131,6 +135,7 @@ export const CreateUser = () => {
             label="Correo"
             type="email"
             name="u_email"
+            id="u_email"
             value={formData.u_email}
             onChange={handleChange}
           />
@@ -138,6 +143,7 @@ export const CreateUser = () => {
             label="Contraseña"
             name="u_pass"
             type="password"
+            id="u_pass"
             value={formData.u_pass}
             onChange={handleChange}
           />

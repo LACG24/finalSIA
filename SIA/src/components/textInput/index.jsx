@@ -13,8 +13,9 @@ export function TextInput({
 }) {
   return (
     <div className="textInput">
-      <label>{label}</label>
+      <label htmlFor={name}>{label}</label>
       <input
+        id={name}
         type={type}
         name={name}
         value={value}
@@ -22,7 +23,7 @@ export function TextInput({
         placeholder={placeholder}
         list={list}
       />
-      {<p className="errorMessage">{errorMessage}</p>}
+      {errorMessage && <p className="errorMessage">{errorMessage}</p>}
     </div>
   );
 }

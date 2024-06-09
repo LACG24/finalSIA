@@ -19,6 +19,7 @@ export const CreateUser = () => {
     u_pass: "",
     u_rol: 0,
   });
+
   const [error, setError] = useState("");
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,14 +45,13 @@ export const CreateUser = () => {
       return false;
     }
 
-    // Validar el ID del usuario
-    if (formData.u_id.length < 4 || formData.u_id.length > 20) {
+    if (formData.u_id.length < 4 || formData.u_id.length > 10) {
       setError("El username debe tener entre 4 y 10 caracteres.");
       return false;
     }
 
     // Validar el correo electrónico
-    const emailRegex = /^[^\s@]+(@[^\s@]+\.[^\s@]+)?$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.u_email)) {
       setError("Ingrese un correo electrónico válido.");
       return false;
@@ -87,7 +87,6 @@ export const CreateUser = () => {
       // Manejar el éxito de la inserción
       setRegistrationSuccess(true);
       setError(null);
-     
     } catch (error) {
       setError(error.message);
       console.error("Error al agregar el usuario:", error);
@@ -113,21 +112,18 @@ export const CreateUser = () => {
           <TextInput
             label="Nombre de usuario"
             name="u_id"
-            id="u_id"
             value={formData.u_id}
             onChange={handleChange}
           />
           <TextInput
             label="Nombre"
             name="u_nombre"
-            id="u_nombre"
             value={formData.u_nombre}
             onChange={handleChange}
           />
           <TextInput
             label="Apellidos"
             name="u_apellidos"
-            id="u_apellidos"
             value={formData.u_apellidos}
             onChange={handleChange}
           />
@@ -135,7 +131,6 @@ export const CreateUser = () => {
             label="Correo"
             type="email"
             name="u_email"
-            id="u_email"
             value={formData.u_email}
             onChange={handleChange}
           />
@@ -143,7 +138,6 @@ export const CreateUser = () => {
             label="Contraseña"
             name="u_pass"
             type="password"
-            id="u_pass"
             value={formData.u_pass}
             onChange={handleChange}
           />

@@ -55,9 +55,13 @@ export const logout = (navigate) => {
 };
 
 export const convertAmount = (amount) => {
-  // Verificar si el formato es correcto y luego eliminar los últimos tres caracteres si son ".000"
+  if (typeof amount !== 'string' || isNaN(amount) || amount.trim() === '') {
+    throw new Error("Invalid input");
+  }
+
   if (amount.endsWith(".000")) {
     return parseInt(amount.slice(0, -4), 10);
   }
+  
   return parseFloat(amount); // Conservar cualquier otro decimal
 };

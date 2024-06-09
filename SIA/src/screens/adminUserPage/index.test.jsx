@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { UserPage } from '.';
 import { MemoryRouter } from 'react-router-dom';
 
@@ -21,7 +21,7 @@ describe('User Selection Validate', () => {
 
     // Wait for users to be fetched and rendered
     setTimeout(() => {
-      const checkbox = document.querySelector('input[type="checkbox"]');
+      const checkbox = screen.getByLabelText('user1@example.com').closest('input');
       fireEvent.click(checkbox);
 
       // Assert that the user id was added to the selectedUserIds
@@ -38,7 +38,7 @@ describe('User Selection Validate', () => {
 
     // Wait for users to be fetched and rendered
     setTimeout(() => {
-      const checkbox = document.querySelector('input[type="checkbox"]');
+      const checkbox = screen.getByLabelText('user1@example.com').closest('input');
       fireEvent.click(checkbox); // Check the checkbox
       fireEvent.click(checkbox); // Uncheck the checkbox
 
@@ -56,10 +56,10 @@ describe('User Selection Validate', () => {
 
     // Wait for users to be fetched and rendered
     setTimeout(() => {
-      const checkbox = document.querySelector('input[type="checkbox"]');
+      const checkbox = screen.getByLabelText('user1@example.com').closest('input');
       fireEvent.click(checkbox);
 
-      const deleteButton = document.querySelector('button');
+      const deleteButton = screen.getByText(/Eliminar seleccionados/i);
       expect(deleteButton).not.toBeDisabled();
     }, 100);
   });
@@ -73,7 +73,7 @@ describe('User Selection Validate', () => {
 
     // Wait for users to be fetched and rendered
     setTimeout(() => {
-      const deleteButton = document.querySelector('button');
+      const deleteButton = screen.getByText(/Eliminar seleccionados/i);
       expect(deleteButton).toBeDisabled();
     }, 100);
   });

@@ -38,7 +38,6 @@ export const EditUser = () => {
           u_pass: userData.u_pass,
           u_rol: userData.u_rol,
         });
-       
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -63,7 +62,6 @@ export const EditUser = () => {
     if (!validateForm()) return;
 
     try {
-     
       const response = await fetch(
         `http://${API_HOST}:${API_PORT}/usuarios/${u_id}`,
         {
@@ -78,7 +76,6 @@ export const EditUser = () => {
         throw new Error("Error al editar el usuario");
       }
       // Manejar el éxito de la edición
-     
     } catch (error) {
       console.error("Error al editar el usuario:", error);
     }
@@ -125,13 +122,17 @@ export const EditUser = () => {
             value={formData.u_email}
             onChange={handleChange}
           />
+          {error && <p style={{ color: "red" }}>{error}</p>}
         </div>
         <br />
-        {error && <p style={{ color: "red" }}>{error}</p>}
         <GeneralButton
           textElement="Editar"
           color="var(--color-button-blue)"
-          onClick={() => setConfirmUpdateOpen(true)}
+          onClick={() => {
+            if (validateForm()) {
+              setConfirmUpdateOpen(true);
+            }
+          }}
         ></GeneralButton>
         {confirmUpdateOpen && (
           <ConfirmationPopUp

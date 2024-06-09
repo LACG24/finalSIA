@@ -51,9 +51,7 @@ export const UserDetails = () => {
                 <td>{transaccion.ua_id}</td>
                 <td>{transaccion.a_nombre}</td>
                 <td>
-                  {transaccion.m_id === null
-                    ? "Sin marca"
-                    : transaccion.m_nombre}
+                {transaccion.m_id === null ? "Sin marca" : transaccion.m_nombre}
                 </td>
                 <td>{transaccion.a_cantidad + " " + transaccion.um_id}</td>
                 <td>

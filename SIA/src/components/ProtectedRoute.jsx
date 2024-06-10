@@ -24,20 +24,17 @@ export const ProtectedRoute = ({ children }) => {
 
         try {
           // Verifica si el user_id existe en la base de datos usando fetch
-          const response = await fetch(
-            `http://${API_HOST}:${API_PORT}/validate`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ id: userCookieValue }),
-            }
-          );
+          const response = await fetch(`http://${API_HOST}:${API_PORT}/validate`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ id: userCookieValue }),
+          });
 
           if (response.status === 200) {
             // Verifica si la ruta es la página de administración de usuarios
-            if (location.pathname === "/adminUserPage" && userRol === 0) {
+            if (location.pathname === '/adminUserPage' && userRol === 0) {
               navigate("/");
             }
           } else if (response.status === 401) {
@@ -63,7 +60,7 @@ export const ProtectedRoute = ({ children }) => {
   return children;
 };
 
-function getCookieValue(cookieName) {
+export function getCookieValue(cookieName) {
   // Separamos las cookies por punto y coma para obtener un array de cookies
   const cookies = document.cookie.split(";");
 

@@ -36,6 +36,7 @@ export function CodeInput({ onComplete }) {
           onKeyDown={(e) => handleKeyDown(e, index)}
           ref={inputRefs[index]}
           className="code-input"
+          data-testid={`code-input-${index}`} // Añade este atributo
         />
       ))}
     </div>

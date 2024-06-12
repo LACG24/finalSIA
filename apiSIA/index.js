@@ -1328,46 +1328,102 @@ app.get("/alimentos/busqueda/marca/:marca", (req, res) => {
 });
 
 //busqueda por cantidad (cantidad + unidadmedida)
-
 app.get("/alimentos/busqueda/cantidad/:cantidad", (req, res) => {
-  // Separar cantidad y unidad de medida
-  const [cantidad, um_id] = req.params.cantidad.split(" ");
+  const input = req.params.cantidad;
   const page = parseInt(req.query.page) || 1; // Página actual
   const pageSize = parseInt(req.query.pageSize) || 10; // Tamaño de la página
   const offset = (page - 1) * pageSize; // Desplazamiento
 
+  // Definir regex para identificar el formato del input
+  const regexCantidadUM = /^(\d+(?:\.\d+)?)\s+([a-zA-Z]+)$/;
+  const regexCantidad = /^\d+(?:\.\d+)?$/;
+  const regexUM = /^[a-zA-Z]+$/;
+
+  let cantidad = "";
+  let um_id = "";
+
+  if (regexCantidadUM.test(input)) {
+    // Formato: cantidad unidad
+    [, cantidad, um_id] = input.match(regexCantidadUM);
+  } else if (regexCantidad.test(input)) {
+    // Formato: cantidad
+    cantidad = input;
+  } else if (regexUM.test(input)) {
+    // Formato: unidad
+    um_id = input;
+  } else {
+    return res
+      .status(400)
+      .send(
+        "Formato de entrada inválido. Debe ser 'cantidad unidad', 'cantidad' o 'unidad'."
+      );
+  }
+
+  console.log(
+    "Cantidad:",
+    cantidad,
+    "UM_ID:",
+    um_id,
+    "Page:",
+    page,
+    "PageSize:",
+    pageSize
+  );
+
+  // Construir la consulta SQL y los parámetros dinámicamente
+  let sqlQuery =
+    "SELECT * FROM Alimento LEFT OUTER JOIN Marca ON Alimento.m_id = Marca.m_id NATURAL JOIN UnidadMedida WHERE a_stock > 0";
+  let countQuery = "SELECT COUNT(*) AS total FROM Alimento WHERE a_stock > 0";
+  let queryParams = [];
+  let countParams = [];
+
+  if (cantidad) {
+    sqlQuery += " AND a_cantidad LIKE ?";
+    countQuery += " AND a_cantidad LIKE ?";
+    queryParams.push(`%${cantidad}%`);
+    countParams.push(`%${cantidad}%`);
+  }
+
+  if (um_id) {
+    sqlQuery += " AND um_id LIKE ?";
+    countQuery += " AND um_id LIKE ?";
+    queryParams.push(`%${um_id}%`);
+    countParams.push(`%${um_id}%`);
+  }
+
+  sqlQuery += " LIMIT ?, ?";
+  queryParams.push(offset, pageSize);
+
   // Consulta para obtener los datos de los alimentos
-  connection.query(
-    "SELECT * FROM Alimento LEFT OUTER JOIN Marca ON Alimento.m_id = Marca.m_id NATURAL JOIN UnidadMedida WHERE a_cantidad LIKE ? AND um_id LIKE ? AND a_stock > 0 LIMIT ?, ?",
-    [cantidad, um_id, offset, pageSize],
-    (err, alimentos) => {
+  connection.query(sqlQuery, queryParams, (err, alimentos) => {
+    if (err) {
+      console.error("Error de consulta de alimentos:", err);
+      return res.status(500).send("Error de servidor al obtener los alimentos");
+    }
+
+    console.log("Alimentos encontrados:", alimentos);
+
+    // Consulta para obtener el conteo total de alimentos
+    connection.query(countQuery, countParams, (err, countResult) => {
       if (err) {
-        console.error("Error de consulta:", err);
-        return res.status(500).send("Error de servidor");
+        console.error("Error de consulta del conteo total:", err);
+        return res
+          .status(500)
+          .send("Error de servidor al obtener el conteo total");
       }
 
-      // Consulta para obtener el conteo total de alimentos
-      connection.query(
-        "SELECT COUNT(*) AS total FROM Alimento WHERE a_cantidad LIKE ? AND um_id LIKE ? AND a_stock > 0",
-        ["%" + cantidad + "%", "%" + um_id + "%"],
-        (err, countResult) => {
-          if (err) {
-            console.error("Error de consulta:", err);
-            return res.status(500).send("Error de servidor");
-          }
+      console.log("Total de alimentos encontrados:", countResult);
 
-          // Crear un objeto JSON con los datos de los alimentos y el conteo total
-          const total = countResult[0].total;
-          const response = {
-            total,
-            alimentos,
-          };
+      // Crear un objeto JSON con los datos de los alimentos y el conteo total
+      const total = countResult[0].total;
+      const response = {
+        total,
+        alimentos,
+      };
 
-          res.json(response);
-        }
-      );
-    }
-  );
+      res.json(response);
+    });
+  });
 });
 
 app.get("/alimentos/busqueda/stock/:stock", (req, res) => {

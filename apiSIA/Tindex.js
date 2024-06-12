@@ -1079,7 +1079,6 @@ app.post("/alimentos", (req, res) => {
 });
 
 //actualizar alimento por id
-
 app.put("/alimentos/:id", (req, res) => {
   const { id } = req.params;
   const {
@@ -1092,25 +1091,77 @@ app.put("/alimentos/:id", (req, res) => {
     um_id,
     m_id,
   } = req.body;
+
+  // Primero, busca si existe un alimento con las mismas características
   connection.query(
-    "UPDATE Alimento SET a_nombre = ?, a_cantidad = ?, a_stock = ?, a_fechaSalida = ?, a_fechaEntrada = ?, a_fechaCaducidad = ?, um_id = ?, m_id = ? WHERE a_id = ?",
-    [
-      a_nombre,
-      a_cantidad,
-      a_stock,
-      a_fechaSalida,
-      a_fechaEntrada,
-      a_fechaCaducidad,
-      um_id,
-      m_id,
-      id,
-    ],
-    (err, result) => {
+    "SELECT * FROM Alimento WHERE a_nombre = ? AND a_cantidad = ? AND a_fechaCaducidad = ? AND um_id = ? AND m_id = ?",
+    [a_nombre, a_cantidad, a_fechaCaducidad, um_id, m_id],
+    (err, results) => {
       if (err) {
-        console.error("Error al actualizar alimento:", err);
+        console.error("Error al buscar alimento:", err);
         return res.status(500).send("Error de servidor");
       }
-      res.status(200).send("Alimento actualizado correctamente");
+
+      if (results.length > 0) {
+        // Si existe un alimento con las mismas características, suma el stock y elimina el alimento actual
+        const existingAlimento = results[0];
+        const newStock = existingAlimento.a_stock + a_stock;
+
+        connection.query(
+          "UPDATE Alimento SET a_stock = ? WHERE a_id = ?",
+          [newStock, existingAlimento.a_id],
+          (err, result) => {
+            if (err) {
+              console.error(
+                "Error al actualizar stock del alimento existente:",
+                err
+              );
+              return res.status(500).send("Error de servidor");
+            }
+
+            // Elimina el alimento actual
+            connection.query(
+              "DELETE FROM Alimento WHERE a_id = ?",
+              [id],
+              (err, result) => {
+                if (err) {
+                  console.error("Error al eliminar el alimento actual:", err);
+                  return res.status(500).send("Error de servidor");
+                }
+
+                res
+                  .status(200)
+                  .send(
+                    "Alimento actualizado correctamente, se sumó el stock y se eliminó el alimento duplicado"
+                  );
+              }
+            );
+          }
+        );
+      } else {
+        // Si no existe un alimento con las mismas características, actualiza el alimento normalmente
+        connection.query(
+          "UPDATE Alimento SET a_nombre = ?, a_cantidad = ?, a_stock = ?, a_fechaSalida = ?, a_fechaEntrada = ?, a_fechaCaducidad = ?, um_id = ?, m_id = ? WHERE a_id = ?",
+          [
+            a_nombre,
+            a_cantidad,
+            a_stock,
+            a_fechaSalida,
+            a_fechaEntrada,
+            a_fechaCaducidad,
+            um_id,
+            m_id,
+            id,
+          ],
+          (err, result) => {
+            if (err) {
+              console.error("Error al actualizar alimento:", err);
+              return res.status(500).send("Error de servidor");
+            }
+            res.status(200).send("Alimento actualizado correctamente");
+          }
+        );
+      }
     }
   );
 });
@@ -1179,7 +1230,7 @@ app.get("/alimentos/busqueda/nombre/:nombre", (req, res) => {
 
   // Consulta para obtener los datos de los alimentos
   connection.query(
-    "SELECT * FROM Alimento LEFT OUTER JOIN Marca ON Alimento.m_id = Marca.m_id NATURAL JOIN UnidadMedida WHERE a_nombre LIKE ? LIMIT ?, ?",
+    "SELECT * FROM Alimento LEFT OUTER JOIN Marca ON Alimento.m_id = Marca.m_id NATURAL JOIN UnidadMedida WHERE a_nombre LIKE ? AND a_stock > 0 LIMIT ?, ?",
     ["%" + nombre + "%", offset, pageSize],
     (err, alimentos) => {
       if (err) {
@@ -1247,15 +1298,15 @@ app.get("/alimentos/busqueda/marca/:marca", (req, res) => {
   if (formattedMarca === null) {
     // Si el usuario busca alimentos sin marca
     sqlQuery =
-      "SELECT * FROM Alimento LEFT OUTER JOIN Marca ON Alimento.m_id = Marca.m_id NATURAL JOIN UnidadMedida WHERE m_nombre IS NULL LIMIT ?, ?";
+      "SELECT * FROM Alimento LEFT OUTER JOIN Marca ON Alimento.m_id = Marca.m_id NATURAL JOIN UnidadMedida WHERE m_nombre IS NULL AND a_stock > 0 LIMIT ?, ?";
     countQuery =
-      "SELECT COUNT(*) AS total FROM Alimento LEFT OUTER JOIN Marca ON Alimento.m_id = Marca.m_id WHERE m_nombre IS NULL";
+      "SELECT COUNT(*) AS total FROM Alimento LEFT OUTER JOIN Marca ON Alimento.m_id = Marca.m_id WHERE m_nombre IS NULL AND a_stock > 0";
   } else {
     // Si el usuario busca alimentos con una marca específica
     sqlQuery =
-      "SELECT * FROM Alimento LEFT OUTER JOIN Marca ON Alimento.m_id = Marca.m_id NATURAL JOIN UnidadMedida WHERE m_nombre LIKE ? LIMIT ?, ?";
+      "SELECT * FROM Alimento LEFT OUTER JOIN Marca ON Alimento.m_id = Marca.m_id NATURAL JOIN UnidadMedida WHERE m_nombre LIKE ? AND a_stock > 0 LIMIT ?, ?";
     countQuery =
-      "SELECT COUNT(*) AS total FROM Alimento LEFT OUTER JOIN Marca ON Alimento.m_id = Marca.m_id WHERE m_nombre LIKE ?";
+      "SELECT COUNT(*) AS total FROM Alimento LEFT OUTER JOIN Marca ON Alimento.m_id = Marca.m_id WHERE m_nombre LIKE ? AND a_stock > 0";
   }
 
   // Ejecutar la consulta para obtener los datos de los alimentos
@@ -1297,44 +1348,101 @@ app.get("/alimentos/busqueda/marca/:marca", (req, res) => {
 //busqueda por cantidad (cantidad + unidadmedida)
 
 app.get("/alimentos/busqueda/cantidad/:cantidad", (req, res) => {
-  // Separar cantidad y unidad de medida
-  const [cantidad, um_id] = req.params.cantidad.split(" ");
+  const input = req.params.cantidad;
   const page = parseInt(req.query.page) || 1; // Página actual
   const pageSize = parseInt(req.query.pageSize) || 10; // Tamaño de la página
   const offset = (page - 1) * pageSize; // Desplazamiento
 
+  // Definir regex para identificar el formato del input
+  const regexCantidadUM = /^(\d+(?:\.\d+)?)\s+([a-zA-Z]+)$/;
+  const regexCantidad = /^\d+(?:\.\d+)?$/;
+  const regexUM = /^[a-zA-Z]+$/;
+
+  let cantidad = "";
+  let um_id = "";
+
+  if (regexCantidadUM.test(input)) {
+    // Formato: cantidad unidad
+    [, cantidad, um_id] = input.match(regexCantidadUM);
+  } else if (regexCantidad.test(input)) {
+    // Formato: cantidad
+    cantidad = input;
+  } else if (regexUM.test(input)) {
+    // Formato: unidad
+    um_id = input;
+  } else {
+    return res
+      .status(400)
+      .send(
+        "Formato de entrada inválido. Debe ser 'cantidad unidad', 'cantidad' o 'unidad'."
+      );
+  }
+
+  console.log(
+    "Cantidad:",
+    cantidad,
+    "UM_ID:",
+    um_id,
+    "Page:",
+    page,
+    "PageSize:",
+    pageSize
+  );
+
+  // Construir la consulta SQL y los parámetros dinámicamente
+  let sqlQuery =
+    "SELECT * FROM Alimento LEFT OUTER JOIN Marca ON Alimento.m_id = Marca.m_id NATURAL JOIN UnidadMedida WHERE a_stock > 0";
+  let countQuery = "SELECT COUNT(*) AS total FROM Alimento WHERE a_stock > 0";
+  let queryParams = [];
+  let countParams = [];
+
+  if (cantidad) {
+    sqlQuery += " AND a_cantidad LIKE ?";
+    countQuery += " AND a_cantidad LIKE ?";
+    queryParams.push(`%${cantidad}%`);
+    countParams.push(`%${cantidad}%`);
+  }
+
+  if (um_id) {
+    sqlQuery += " AND um_id LIKE ?";
+    countQuery += " AND um_id LIKE ?";
+    queryParams.push(`%${um_id}%`);
+    countParams.push(`%${um_id}%`);
+  }
+
+  sqlQuery += " LIMIT ?, ?";
+  queryParams.push(offset, pageSize);
+
   // Consulta para obtener los datos de los alimentos
-  connection.query(
-    "SELECT * FROM Alimento LEFT OUTER JOIN Marca ON Alimento.m_id = Marca.m_id NATURAL JOIN UnidadMedida WHERE a_cantidad LIKE ? AND um_id LIKE ? LIMIT ?, ?",
-    [cantidad, um_id, offset, pageSize],
-    (err, alimentos) => {
+  connection.query(sqlQuery, queryParams, (err, alimentos) => {
+    if (err) {
+      console.error("Error de consulta de alimentos:", err);
+      return res.status(500).send("Error de servidor al obtener los alimentos");
+    }
+
+    console.log("Alimentos encontrados:", alimentos);
+
+    // Consulta para obtener el conteo total de alimentos
+    connection.query(countQuery, countParams, (err, countResult) => {
       if (err) {
-        console.error("Error de consulta:", err);
-        return res.status(500).send("Error de servidor");
+        console.error("Error de consulta del conteo total:", err);
+        return res
+          .status(500)
+          .send("Error de servidor al obtener el conteo total");
       }
 
-      // Consulta para obtener el conteo total de alimentos
-      connection.query(
-        "SELECT COUNT(*) AS total FROM Alimento WHERE a_cantidad LIKE ? AND um_id LIKE ?",
-        ["%" + cantidad + "%", "%" + um_id + "%"],
-        (err, countResult) => {
-          if (err) {
-            console.error("Error de consulta:", err);
-            return res.status(500).send("Error de servidor");
-          }
+      console.log("Total de alimentos encontrados:", countResult);
 
-          // Crear un objeto JSON con los datos de los alimentos y el conteo total
-          const total = countResult[0].total;
-          const response = {
-            total,
-            alimentos,
-          };
+      // Crear un objeto JSON con los datos de los alimentos y el conteo total
+      const total = countResult[0].total;
+      const response = {
+        total,
+        alimentos,
+      };
 
-          res.json(response);
-        }
-      );
-    }
-  );
+      res.json(response);
+    });
+  });
 });
 
 app.get("/alimentos/busqueda/stock/:stock", (req, res) => {
@@ -1345,7 +1453,7 @@ app.get("/alimentos/busqueda/stock/:stock", (req, res) => {
 
   // Consulta para obtener los datos de los alimentos
   connection.query(
-    "SELECT * FROM Alimento LEFT OUTER JOIN Marca ON Alimento.m_id = Marca.m_id NATURAL JOIN UnidadMedida WHERE a_stock LIKE ? LIMIT ?, ?",
+    "SELECT * FROM Alimento LEFT OUTER JOIN Marca ON Alimento.m_id = Marca.m_id NATURAL JOIN UnidadMedida WHERE a_stock LIKE ? AND a_stock > 0 LIMIT ?, ?",
     [stock, offset, pageSize],
     (err, alimentos) => {
       if (err) {
@@ -1355,7 +1463,7 @@ app.get("/alimentos/busqueda/stock/:stock", (req, res) => {
 
       // Consulta para obtener el conteo total de alimentos
       connection.query(
-        "SELECT COUNT(*) AS total FROM Alimento WHERE a_stock LIKE ?",
+        "SELECT COUNT(*) AS total FROM Alimento WHERE a_stock LIKE ? AND a_stock > 0",
         ["%" + stock + "%"],
         (err, countResult) => {
           if (err) {
@@ -1397,15 +1505,15 @@ app.get("/alimentos/busqueda/caducidad/:caducidad", (req, res) => {
   if (formattedCaducidad === null) {
     // Si el usuario busca alimentos sin fecha de caducidad
     sqlQuery =
-      "SELECT * FROM Alimento LEFT OUTER JOIN Marca ON Alimento.m_id = Marca.m_id NATURAL JOIN UnidadMedida WHERE a_fechaCaducidad IS NULL LIMIT ?, ?";
+      "SELECT * FROM Alimento LEFT OUTER JOIN Marca ON Alimento.m_id = Marca.m_id NATURAL JOIN UnidadMedida WHERE a_fechaCaducidad IS NULL AND a_stock > 0 LIMIT ?, ?";
     countQuery =
-      "SELECT COUNT(*) AS total FROM Alimento LEFT OUTER JOIN Marca ON Alimento.m_id = Marca.m_id NATURAL JOIN UnidadMedida WHERE a_fechaCaducidad IS NULL";
+      "SELECT COUNT(*) AS total FROM Alimento LEFT OUTER JOIN Marca ON Alimento.m_id = Marca.m_id NATURAL JOIN UnidadMedida WHERE a_fechaCaducidad IS NULL AND a_stock > 0";
   } else {
     // Si el usuario busca alimentos con una fecha de caducidad específica
     sqlQuery =
-      "SELECT * FROM Alimento LEFT OUTER JOIN Marca ON Alimento.m_id = Marca.m_id NATURAL JOIN UnidadMedida WHERE a_fechaCaducidad LIKE ? LIMIT ?, ?";
+      "SELECT * FROM Alimento LEFT OUTER JOIN Marca ON Alimento.m_id = Marca.m_id NATURAL JOIN UnidadMedida WHERE a_fechaCaducidad LIKE ? AND a_stock > 0 LIMIT ?, ?";
     countQuery =
-      "SELECT COUNT(*) AS total FROM Alimento LEFT OUTER JOIN Marca ON Alimento.m_id = Marca.m_id NATURAL JOIN UnidadMedida WHERE a_fechaCaducidad LIKE ?";
+      "SELECT COUNT(*) AS total FROM Alimento LEFT OUTER JOIN Marca ON Alimento.m_id = Marca.m_id NATURAL JOIN UnidadMedida WHERE a_fechaCaducidad LIKE ? AND a_stock > 0";
   }
 
   // Ejecutar la consulta para obtener los datos de los alimentos

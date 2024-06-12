@@ -8,7 +8,7 @@ import { SelectDateDelete } from "../../components/selectDateDelete";
 import { ConfirmationPopUp } from "../../components/confirmationPopUp";
 import { useNavigate } from "react-router-dom";
 import { formatDate } from "../../generalFunctions";
-
+import { convertAmount } from "../../generalFunctions";
 const API_HOST = import.meta.env.VITE_API_HOST;
 const API_PORT = import.meta.env.VITE_API_PORT;
 export const CheckDateDelete = ({ selectedIds, setSelectedIds }) => {
@@ -189,7 +189,7 @@ export const CheckDateDelete = ({ selectedIds, setSelectedIds }) => {
         <h1 className="tituloD">Eliminar Productos</h1>
       </div>
       <div className="cuadradoD">
-        <p>Estas por agregar los siguientes productos</p>
+        <p>Estas por eliminar los siguientes productos</p>
         <div className="tableContainerDelete">
           <table className="userTableDelete">
             <thead>
@@ -206,7 +206,9 @@ export const CheckDateDelete = ({ selectedIds, setSelectedIds }) => {
               {products.map((product) => (
                 <tr key={product.a_id}>
                   <td>{product.a_nombre}</td>
-                  <td>{product.a_cantidad + " " + product.um_id}</td>
+                  <td>
+                    {convertAmount(product.a_cantidad) + " " + product.um_id}
+                  </td>
                   <td>{product.marca_nombre}</td>
                   <td>{product.a_stock}</td>
                   <td>

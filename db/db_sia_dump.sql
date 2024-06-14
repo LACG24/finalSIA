@@ -52,7 +52,7 @@ CREATE TABLE `Usuario` (
 
 
 
-INSERT INTO `Usuario` VALUES ('ManejadorEventos','Event','Handler','','',1),('SAdmin','Giselle','Hernandez','LACG24@outlook.com','38f015a3d771e6f0854989ff3a0f4051efaece727cc42be1dab1e514022bbb42',1), ('User01','Giselle','Hernandez', 'LACG24@outlook.com','67ed235e1e075a7214902e1af0cb4bb4ad3ba0fcf084411418074cf4247004cc', NULL);
+INSERT INTO `Usuario` VALUES ('ManejadorEventos','Event','Handler','','',1),('SAdmin','Giselle','Hernandez','giselle@example.com','38f015a3d771e6f0854989ff3a0f4051efaece727cc42be1dab1e514022bbb42',1), ('User01','Giselle','Hernandez', 'user01@example.com','67ed235e1e075a7214902e1af0cb4bb4ad3ba0fcf084411418074cf4247004cc', NULL);
 
 
 
